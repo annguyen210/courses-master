@@ -1,46 +1,58 @@
-<!DOCTYPE html>  
-<html lang="vi">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Đăng ký</title>  
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
-    <link rel="stylesheet" href="style.css">  
-</head>  
-<body>  
-    <div class="container">  
-        <div class="row justify-content-center"> <!-- Thay đổi để căn giữa -->  
-            <div class="col-md-6"> <!-- Điều chỉnh kích thước cột -->  
-                <h2>Đăng ký</h2>  
-                <form id="signupForm">  
-                    <div class="form-group">  
-                        <label for="signupEmail">Email:</label>  
-                        <input type="email" class="form-control" id="signupEmail" required>  
-                    </div>  
-                    <div class="form-group">  
-                        <label for="signupPassword">Mật khẩu:</label>  
-                        <input type="password" class="form-control" id="signupPassword" required>  
-                    </div>  
-                    <div class="form-group">  
-                        <label for="confirmPassword">Xác nhận mật khẩu:</label>  
-                        <input type="password" class="form-control" id="confirmPassword" required>  
-                    </div>  
-                    <button type="submit" class="btn btn-success">Đăng ký</button>  
-                    <p>Bạn đã có tài khoản? <a href="login.html" id="showLogin">Đăng nhập</a></p>  
-                    <hr>  
-                    <button type="button" class="btn btn-primary">Login with Facebook</button>  
-                    <button type="button" class="btn btn-danger">Login with Google</button>  
-                </form>  
-            </div>  
-        </div>  
-    </div>  
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký tài khoản</title>
+    <link rel="stylesheet" href="ff.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Đăng ký tài khoản</h1>
+    </header>
+    <main>
+      <form id="register-form">
+        <label for="username">Tên tài khoản:</label>
+        <input type="text" id="username" required />
+        <br />
+        <label for="phonenumber">Số Điện Thoại:</label>
+        <input type="text" id="phonenumber" required />
+        <br />
+        <label for="Email">Email:</label>
+        <input type="email" id="Email" required />
+        <br />
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" required />
+        <br />
+        <button type="submit">Đăng ký</button>
+        <a href="login.html" class="change-link"
+          >Đã có tài khoản? Đăng nhập tại đây!</a
+        >
+      </form>
+    </main>
+    <footer>
+      <p>&copy; 2025 Công ty của tôi. Bản quyền được bảo lưu.</p>
+    </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>  
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>  
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>  
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>  
-    <script type="module" src="./js/firebase.js"></script> 
+    <script>
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Ngăn không cho form tự động gửi
 
-</body>  
-</html>  
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const phonenumber = document.getElementById("phonenumber").value;
+          const Email = document.getElementById("Email").value;
+
+          // Lưu tài khoản vào localStorage
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
+          localStorage.setItem("phonenumber", phonenumber);
+          localStorage.setItem("Email", Email);
+          // Chuyển hướng đến trang đăng nhập
+          window.location.href = "login.html";
+        });
+    </script>
+  </body>
+</html>
