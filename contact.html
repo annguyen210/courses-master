@@ -1,213 +1,190 @@
-<!DOCTYPE html>  
-<html lang="vi">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Chatbot Tiếng Việt</title>  
-    <link rel="stylesheet" href="styles.css">  
-</head>  
-<body>  
-    <div class="chat-container">  
-        <div class="chat-header">  
-            <h1>Chatbot AI HỌC TẬP ✅</h1>  
-        </div>  
-        <div class="chat-messages" id="chat-messages"></div>  
-        <div class="chat-input">  
-            <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn..."> 
-            <button id="send-button">Gửi</button>  
-        </div>  
-    </div>  
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot AI Học Tập</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>AI CHAT HỌC TẬP 🎓</h2>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <div class="bot-message">Xin chào! Mình có thể giải thích về một số câu hỏi liên quan đến học tập!</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn...">
+      <button onclick="sendMessage()">Gửi</button>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
   <style>
-    body {  
-    font-family: Arial, sans-serif;  
-    margin: 0;  
-    padding: 0;  
-    display: flex;  
-    justify-content: center;  
-    align-items: center;  
-    height: 100vh;  
-    background-color: #f5f5f5;  
-}  
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.chat-container {  
-    width: 400px;  
-    height: 600px;  
-    border: 1px solid #ccc;  
-    border-radius: 10px;  
-    display: flex;  
-    flex-direction: column;  
-    background-color: white;  
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
-}  
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-.chat-header {  
-    padding: 15px;  
-    background-color: #4CAF50;  
-    color: white;  
-    border-top-left-radius: 10px;  
-    border-top-right-radius: 10px;  
-    text-align: center;  
-}  
+.chat-container {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-.chat-messages {  
-    flex: 1;  
-    padding: 15px;  
-    overflow-y: auto;  
-}  
+.chat-header {
+  background-color: #2ecc71;
+  color: white;
+  padding: 16px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+}
 
-.message {  
-    margin-bottom: 10px;  
-    padding: 8px 12px;  
-    border-radius: 18px;  
-    max-width: 70%;  
-}  
+.chat-header span {
+  margin-left: 10px;
+}
 
-.user-message {  
-    background-color: #e3f2fd;  
-    margin-left: auto;  
-    border-bottom-right-radius: 5px;  
-}  
+.chat-box {
+  padding: 16px;
+  height: 300px;
+  overflow-y: auto;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-.bot-message {  
-    background-color: #f1f1f1;  
-    margin-right: auto;  
-    border-bottom-left-radius: 5px;  
-}  
+.bot-message {
+  background-color: #efefef;
+  padding: 10px 14px;
+  border-radius: 15px;
+  max-width: 80%;
+  align-self: flex-start;
+}
 
-.chat-input {  
-    display: flex;  
-    padding: 10px;  
-    border-top: 1px solid #eee;  
-}  
+.user-message {
+  background-color: #d1ecf1;
+  padding: 10px 14px;
+  border-radius: 15px;
+  max-width: 80%;
+  align-self: flex-end;
+}
 
-#user-input {  
-    flex: 1;  
-    padding: 10px;  
-    border: 1px solid #ccc;  
-    border-radius: 20px;  
-    outline: none;  
-}  
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
 
-#send-button {  
-    margin-left: 10px;  
-    padding: 10px 20px;  
-    background-color: #4CAF50;  
-    color: white;  
-    border: none;  
-    border-radius: 20px;  
-    cursor: pointer;  
-}  
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+}
 
-#send-button:hover {  
-    background-color: #45a049;  
-}  
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.chat-input button:hover {
+  background-color: #27ae60;
+}
 
   </style>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {  
-    const chatMessages = document.getElementById('chat-messages');  
-    const userInput = document.getElementById('user-input');  
-    const sendButton = document.getElementById('send-button');  
+const chatBox = document.getElementById("chat-box");
 
-    // Kiến thức ngữ pháp tiếng Anh  
-    const grammarKnowledge = {  
-        // Câu bị động (Passive Voice)  
-        "câu bị động": "CÂU BỊ ĐỘNG:\n\n• Công thức chung: BE + V3 (past participle)\n• Ví dụ:\n  - Active: She eats an apple → Passive: The apple is eaten by her\n  - Active: They built this house → Passive: This house was built by them\n\n• Lưu ý: Chỉ ngoại động từ (transitive verbs) mới có thể chuyển sang bị động",  
-        "passive voice": "Xem giải thích tại mục 'câu bị động'",  
+function sendMessage() {
+  const input = document.getElementById("user-input");
+  const message = input.value.trim();
+  if (message === "") return;
 
-        // Câu điều kiện (Conditionals)  
-        "câu điều kiện": "CÂU ĐIỀU KIỆN:\n\n1. Loại 0: Sự thật hiển nhiên\n   If + S + V(s/es), S + V(s/es)\n   VD: If you heat ice, it melts\n\n2. Loại 1: Điều kiện có thể xảy ra\n   If + S + V(s/es), S + will/can + V\n   VD: If it rains, we will stay home\n\n3. Loại 2: Điều kiện không có thật ở hiện tại\n   If + S + V2/ed, S + would/could + V\n   VD: If I were rich, I would travel the world\n\n4. Loại 3: Điều kiện không có thật trong quá khứ\n   If + S + had + V3, S + would have + V3\n   VD: If you had studied harder, you would have passed the exam",  
+  appendMessage("user", message);
+  getBotResponse(message.toLowerCase());
+  input.value = "";
+}
 
-        // Mệnh đề quan hệ (Relative Clauses)  
-        "mệnh đề quan hệ": "MỆNH ĐỀ QUAN HỆ:\n\n• Dùng để bổ nghĩa cho danh từ đứng trước\n• Các đại từ quan hệ:\n  - WHO: thay cho người (subject)\n  - WHOM: thay cho người (object)\n  - WHICH: thay cho vật\n  - THAT: dùng cho cả người và vật\n  - WHOSE: chỉ sở hữu\n\nVD:\n- The man who lives next door is a doctor\n- The book which you lent me is interesting",  
+function appendMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.classList.add(sender);
+  msg.textContent = (sender === "user" ? "Bạn: " : "Bot: ") + text;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-        // Trọng âm và phát âm  
-        "trọng âm": "QUY TẮC TRỌNG ÂM PHỔ BIẾN:\n\n1. Động từ 2 âm tiết: trọng âm rơi vào âm tiết thứ 2 (ex: re'LY, be'GIN)\n2. Danh từ/tính từ 2 âm tiết: trọng âm thường ở âm tiết đầu (ex: 'TAble, 'HAPpy)\n3. Từ tận cùng bằng -ic, -sion, -tion: trọng âm rơi vào âm ngay trước (ex: eco'NOMic, de'CIsion)\n4. Từ có hậu tố -ee, -eer: trọng âm ở chính hậu tố (ex: employ'EE, engi'NEER)",  
+function getBotResponse(input) {
+  let response = "Xin lỗi, mình chưa hiểu câu hỏi.";
 
-        // Giới từ (Prepositions)  
-        "giới từ": "CÁCH DÙNG GIỚI TỪ PHỔ BIẾN:\n\n• IN: tháng/năm/mùa/thành phố/quốc gia (in May, in 2023, in summer)\n• ON: ngày/thứ (on Monday, on Christmas Day)\n• AT: giờ/địa điểm cụ thể (at 7pm, at school)\n• FOR: khoảng thời gian (for 2 hours)\n• SINCE: mốc thời gian (since 2010)\n• Cụm giới từ cố định: good at, interested in, afraid of",  
+  // Các chủ đề tiếng Anh
+  if (input.includes("câu bị động")) {
+    response = "Câu bị động: S + be + V3/ed. Ví dụ: The cake is made by her.";
+  } else if (input.includes("câu điều kiện")) {
+    response = "Câu điều kiện: If + S + V, S + will/can... Ví dụ: If it rains, I will stay home.";
+  } else if (input.includes("mệnh đề quan hệ")) {
+    response = "Mệnh đề quan hệ dùng để bổ nghĩa cho danh từ. Ví dụ: The man who lives next door is friendly.";
+  }
 
-        // Liên từ (Conjunctions)  
-        "liên từ": "CÁC LOẠI LIÊN TỪ:\n\n1. Liên từ kết hợp (FANBOYS):\n   For, And, Nor, But, Or, Yet, So\n   VD: I like tea AND coffee\n\n2. Liên từ tương quan:\n   Either...or, Neither...nor, Both...and\n   VD: Neither John NOR Mary came\n\n3. Liên từ phụ thuộc:\n   Although, Because, If, When, While\n   VD: Although it rained, we went out",  
+  // Ngữ văn
+  else if (input.includes("phương thức biểu đạt")) {
+    response = "Các phương thức biểu đạt gồm: Tự sự (Phương thức biểu đạt tự sự là cách kể lại sự việc, câu chuyện có diễn biến, nhân vật và thường mang thông điệp.) , miêu tả (Phương thức biểu đạt miêu tả là cách dùng ngôn ngữ để làm nổi bật đặc điểm, hình dáng, trạng thái của sự vật, hiện tượng, con người.) ,  biểu cảm (Phương thức biểu đạt biểu cảm là cách thể hiện cảm xúc, tình cảm, suy nghĩ của người viết về một đối tượng nào đó.) , nghị luận ( Phương thức biểu đạt nghị luận là phương thức mà người viết, người nói sử dụng ngôn ngữ để trình bày những ý kiến của mình.) , thuyết minh: Phương thức biểu đạt thuyết minh là cách cung cấp, giới thiệu, giảng giải tri thức về sự vật, hiện tượng một cách khách quan, khoa học..";
+  } else if (input.includes("biện pháp tu từ")) {
+    response = "Biện pháp tu từ gồm: ẩn dụ (ví dụ hóa), hoán dụ (gọi tên khác), điệp từ (lặp lại từ), nhân hóa (vật như người), so sánh, đối lập... Tác dụng: nhấn mạnh ý, tạo cảm xúc, hình ảnh.";
+  }
 
-        // Từ loại (Parts of Speech)  
-        "từ loại": "8 TỪ LOẠI TRONG TIẾNG ANH:\n\n1. Danh từ (Noun): person, place, thing\n2. Đại từ (Pronoun): he, she, it\n3. Tính từ (Adjective): beautiful, tall\n4. Động từ (Verb): go, eat, study\n5. Trạng từ (Adverb): quickly, very\n6. Giới từ (Preposition): in, on, at\n7. Liên từ (Conjunction): and, but\n8. Thán từ (Interjection): oh, wow",  
+  // Dàn ý văn nghị luận xã hội
+  else if (input.includes("dàn ý bài văn nghị luận xã hội")) {
+    response = `Dàn ý như sau:\nI. Mở bài: Giới thiệu vấn đề cần bàn.\nII. Thân bài:\n1. Giải thích\n2. Phân tích - nguyên nhân - hậu quả\n3. Giải pháp, bài học\nIII. Kết bài: Khẳng định lại vấn đề.`;
+  }
 
-        // Xác định lỗi sai  
-        "lỗi sai trong câu": "CÁCH XÁC ĐỊNH LỖI SAI:\n\n1. Kiểm tra sự hòa hợp chủ ngữ - động từ\n2. Kiểm tra thì của động từ\n3. Kiểm tra cách dùng từ loại (VD: tính từ thay vì trạng từ)\n4. Kiểm tra giới từ đi kèm động từ\n5. Kiểm tra cấu trúc song song (parallel structure)\n\nVD sai: She good at swim → Sửa: She IS good at SWIMMING",  
+  // Dàn ý nghị luận văn học
+  else if (input.includes("dàn ý bài văn nghị luận văn học")) {
+    response = `I. Mở bài: Giới thiệu tác phẩm, tác giả.\nII. Thân bài: Tóm tắt nội dung, cảm xúc, phân tích hình ảnh và thông điệp.\nIII. Kết bài: Tổng kết cảm xúc, giá trị tác phẩm.`;
+  }
 
-        // Câu hỏi thông thường  
-        "xin chào": "Chào bạn! Mình có thể giải thích một số câu hỏi bạn cần:",  
-        "cảm ơn": "Không có gì! Bạn cần hỏi thêm gì không?",  
-        "mặc định": "Mình chưa hiểu câu hỏi. "  
-    };  
+  // Toán học
+  else if (input.includes("rút gọn biểu thức chứa căn")) {
+    response = "Bạn cần dùng quy tắc khai căn, nhân liên hợp để rút gọn biểu thức.";
+  } else if (input.includes("tam giác đồng dạng")) {
+    response = "Hai tam giác đồng dạng khi có góc bằng nhau và tỉ số cạnh tương ứng bằng nhau.";
+  } else if (input.includes("pytago")) {
+    response = "Định lý Pytago: Trong tam giác vuông, a² + b² = c² (với c là cạnh huyền).";
+  } else if (input.includes("sin cos tan cot")) {
+    response = "Tỉ số lượng giác: sin = đối/huyền, cos = kề/huyền, tan = đối/kề, cot = kề/đối.";
+  }
 
-    function addMessage(text, isUser) {  
-        const messageDiv = document.createElement('div');  
-        messageDiv.classList.add('message');  
-        messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');  
-        messageDiv.textContent = text;  
-        chatMessages.appendChild(messageDiv);  
-        chatMessages.scrollTop = chatMessages.scrollHeight;  
-    }  
+  appendMessage("bot", response);
+}
 
-    function getBotResponse(userMessage) {  
-        userMessage = userMessage.toLowerCase().trim();  
-        
-        // Nhận diện các chủ đề chính  
-        const topics = {  
-            "bị động|passive": "câu bị động",  
-            "điều kiện|conditional": "câu điều kiện",  
-            "mệnh đề quan hệ|relative clause": "mệnh đề quan hệ",  
-            "trọng âm|pronunciation": "trọng âm",  
-            "giới từ|preposition": "giới từ",  
-            "liên từ|conjunction": "liên từ",  
-            "từ loại|parts of speech": "từ loại",  
-            "lỗi sai|error": "lỗi sai trong câu"  
-        };  
-
-        for (const [keyword, responseKey] of Object.entries(topics)) {  
-            if (new RegExp(keyword, 'i').test(userMessage)) {  
-                return grammarKnowledge[responseKey];  
-            }  
-        }  
-        
-        // Kiểm tra các từ khóa thông thường  
-        for (const [keyword, response] of Object.entries(grammarKnowledge)) {  
-            if (userMessage.includes(keyword)) {  
-                return response;  
-            }  
-        }  
-        
-        return grammarKnowledge["mặc định"];  
-    }  
-
-    function handleUserInput() {  
-        const message = userInput.value;  
-        if (message.trim() === '') return;  
-        
-        addMessage(message, true);  
-        userInput.value = '';  
-        
-        setTimeout(() => {  
-            const response = getBotResponse(message);  
-            addMessage(response, false);  
-        }, 500);  
-    }  
-
-    sendButton.addEventListener('click', handleUserInput);  
-    userInput.addEventListener('keypress', function(e) {  
-        if (e.key === 'Enter') {  
-            handleUserInput();  
-        }  
-    });  
-
-    // Lời chào đầu tiên  
-    setTimeout(() => {  
-        addMessage("Xin chào! Mình có thể giải thích về một số câu hỏi liên quan đến học tập!", false);  
-    }, 500);  
-});  
   
   
   
