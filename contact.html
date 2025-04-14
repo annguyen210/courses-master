@@ -101,6 +101,8 @@
 #send-button:hover {  
     background-color: #45a049;  
 }  
+
+
   </style>
   <script>
   document.addEventListener('DOMContentLoaded', function() {  
@@ -108,24 +110,39 @@
     const userInput = document.getElementById('user-input');  
     const sendButton = document.getElementById('send-button');  
 
-    // Mở rộng phần phản hồi với kiến thức toán học  
-    const botResponses = {  
-        // Toán học  
-        "định lý pytago": "Trong một tam giác vuông, bình phương cạnh huyền bằng tổng bình phương hai cạnh góc vuông. Công thức: c² = a² + b²",  
-        "định lý pitago": "Trong một tam giác vuông, bình phương cạnh huyền bằng tổng bình phương hai cạnh góc vuông. Công thức: c² = a² + b²",  
-        "công thức pytago": "c² = a² + b² (với c là cạnh huyền, a và b là hai cạnh góc vuông)",  
-        "diện tích hình tròn": "Diện tích hình tròn = πr² (r là bán kính)",  
-        "chu vi hình tròn": "Chu vi hình tròn = 2πr hoặc πd (d là đường kính)", 
-      
+    // Kiến thức ngữ pháp tiếng Anh  
+    const grammarKnowledge = {  
+        // Câu bị động (Passive Voice)  
+        "câu bị động": "CÂU BỊ ĐỘNG:\n\n• Công thức chung: BE + V3 (past participle)\n• Ví dụ:\n  - Active: She eats an apple → Passive: The apple is eaten by her\n  - Active: They built this house → Passive: This house was built by them\n\n• Lưu ý: Chỉ ngoại động từ (transitive verbs) mới có thể chuyển sang bị động",  
+        "passive voice": "Xem giải thích tại mục 'câu bị động'",  
 
-        // Giao tiếp cơ bản  
-        "xin chào": "Chào bạn! Mình có thể giúp gì về toán học hoặc các chủ đề khác?",  
-        "bạn là ai": "Mình là chatbot hỗ trợ toán học và kiến thức cơ bản!",  
-        "cảm ơn": "Không có chi! Bạn cần hỏi thêm gì nữa không?",  
-        "mặc định": "Mình chưa hiểu câu hỏi. Bạn có thể hỏi về:\n- Định lý Pytago\n- Công thức hình tròn\n- Hoặc chủ đề khác?"  
+        // Câu điều kiện (Conditionals)  
+        "câu điều kiện": "CÂU ĐIỀU KIỆN:\n\n1. Loại 0: Sự thật hiển nhiên\n   If + S + V(s/es), S + V(s/es)\n   VD: If you heat ice, it melts\n\n2. Loại 1: Điều kiện có thể xảy ra\n   If + S + V(s/es), S + will/can + V\n   VD: If it rains, we will stay home\n\n3. Loại 2: Điều kiện không có thật ở hiện tại\n   If + S + V2/ed, S + would/could + V\n   VD: If I were rich, I would travel the world\n\n4. Loại 3: Điều kiện không có thật trong quá khứ\n   If + S + had + V3, S + would have + V3\n   VD: If you had studied harder, you would have passed the exam",  
+
+        // Mệnh đề quan hệ (Relative Clauses)  
+        "mệnh đề quan hệ": "MỆNH ĐỀ QUAN HỆ:\n\n• Dùng để bổ nghĩa cho danh từ đứng trước\n• Các đại từ quan hệ:\n  - WHO: thay cho người (subject)\n  - WHOM: thay cho người (object)\n  - WHICH: thay cho vật\n  - THAT: dùng cho cả người và vật\n  - WHOSE: chỉ sở hữu\n\nVD:\n- The man who lives next door is a doctor\n- The book which you lent me is interesting",  
+
+        // Trọng âm và phát âm  
+        "trọng âm": "QUY TẮC TRỌNG ÂM PHỔ BIẾN:\n\n1. Động từ 2 âm tiết: trọng âm rơi vào âm tiết thứ 2 (ex: re'LY, be'GIN)\n2. Danh từ/tính từ 2 âm tiết: trọng âm thường ở âm tiết đầu (ex: 'TAble, 'HAPpy)\n3. Từ tận cùng bằng -ic, -sion, -tion: trọng âm rơi vào âm ngay trước (ex: eco'NOMic, de'CIsion)\n4. Từ có hậu tố -ee, -eer: trọng âm ở chính hậu tố (ex: employ'EE, engi'NEER)",  
+
+        // Giới từ (Prepositions)  
+        "giới từ": "CÁCH DÙNG GIỚI TỪ PHỔ BIẾN:\n\n• IN: tháng/năm/mùa/thành phố/quốc gia (in May, in 2023, in summer)\n• ON: ngày/thứ (on Monday, on Christmas Day)\n• AT: giờ/địa điểm cụ thể (at 7pm, at school)\n• FOR: khoảng thời gian (for 2 hours)\n• SINCE: mốc thời gian (since 2010)\n• Cụm giới từ cố định: good at, interested in, afraid of",  
+
+        // Liên từ (Conjunctions)  
+        "liên từ": "CÁC LOẠI LIÊN TỪ:\n\n1. Liên từ kết hợp (FANBOYS):\n   For, And, Nor, But, Or, Yet, So\n   VD: I like tea AND coffee\n\n2. Liên từ tương quan:\n   Either...or, Neither...nor, Both...and\n   VD: Neither John NOR Mary came\n\n3. Liên từ phụ thuộc:\n   Although, Because, If, When, While\n   VD: Although it rained, we went out",  
+
+        // Từ loại (Parts of Speech)  
+        "từ loại": "8 TỪ LOẠI TRONG TIẾNG ANH:\n\n1. Danh từ (Noun): person, place, thing\n2. Đại từ (Pronoun): he, she, it\n3. Tính từ (Adjective): beautiful, tall\n4. Động từ (Verb): go, eat, study\n5. Trạng từ (Adverb): quickly, very\n6. Giới từ (Preposition): in, on, at\n7. Liên từ (Conjunction): and, but\n8. Thán từ (Interjection): oh, wow",  
+
+        // Xác định lỗi sai  
+        "lỗi sai trong câu": "CÁCH XÁC ĐỊNH LỖI SAI:\n\n1. Kiểm tra sự hòa hợp chủ ngữ - động từ\n2. Kiểm tra thì của động từ\n3. Kiểm tra cách dùng từ loại (VD: tính từ thay vì trạng từ)\n4. Kiểm tra giới từ đi kèm động từ\n5. Kiểm tra cấu trúc song song (parallel structure)\n\nVD sai: She good at swim → Sửa: She IS good at SWIMMING",  
+
+        // Câu hỏi thông thường  
+        "xin chào": "Chào bạn! Mình có thể giải thích về:\n- Câu bị động\n- Câu điều kiện\n- Mệnh đề quan hệ\n- Trọng âm\n- Giới từ\nHỏi mình bất cứ chủ đề nào nhé!",  
+        "cảm ơn": "Không có chi! Bạn cần hỏi thêm gì không?",  
+        "mặc định": "Mình chưa hiểu câu hỏi. Bạn có thể hỏi về:\n- 'câu bị động là gì'\n- 'câu điều kiện loại 1'\n- 'cách xác định trọng âm'\n- 'các loại liên từ'\nHoặc chủ đề khác?"  
     };  
 
-    // Hàm thêm tin nhắn vào khung chat (giữ nguyên)  
     function addMessage(text, isUser) {  
         const messageDiv = document.createElement('div');  
         messageDiv.classList.add('message');  
@@ -135,32 +152,37 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;  
     }  
 
-    // Cải tiến hàm nhận diện câu hỏi  
     function getBotResponse(userMessage) {  
         userMessage = userMessage.toLowerCase().trim();  
         
-        // Kiểm tra các từ khóa chính xác hơn  
-        if (/định lý|pitago|pytago/.test(userMessage)) {  
-            return botResponses["định lý pytago"];  
-        }  
-        if (/diện tích|hình tròn/.test(userMessage)) {  
-            return botResponses["diện tích hình tròn"];  
-        }  
-        if (/chu vi|hình tròn/.test(userMessage)) {  
-            return botResponses["chu vi hình tròn"];  
+        // Nhận diện các chủ đề chính  
+        const topics = {  
+            "bị động|passive": "câu bị động",  
+            "điều kiện|conditional": "câu điều kiện",  
+            "mệnh đề quan hệ|relative clause": "mệnh đề quan hệ",  
+            "trọng âm|pronunciation": "trọng âm",  
+            "giới từ|preposition": "giới từ",  
+            "liên từ|conjunction": "liên từ",  
+            "từ loại|parts of speech": "từ loại",  
+            "lỗi sai|error": "lỗi sai trong câu"  
+        };  
+
+        for (const [keyword, responseKey] of Object.entries(topics)) {  
+            if (new RegExp(keyword, 'i').test(userMessage)) {  
+                return grammarKnowledge[responseKey];  
+            }  
         }  
         
         // Kiểm tra các từ khóa thông thường  
-        for (const [keyword, response] of Object.entries(botResponses)) {  
+        for (const [keyword, response] of Object.entries(grammarKnowledge)) {  
             if (userMessage.includes(keyword)) {  
                 return response;  
             }  
         }  
         
-        return botResponses["mặc định"];  
+        return grammarKnowledge["mặc định"];  
     }  
 
-    // Giữ nguyên phần xử lý sự kiện  
     function handleUserInput() {  
         const message = userInput.value;  
         if (message.trim() === '') return;  
@@ -183,7 +205,7 @@
 
     // Lời chào đầu tiên  
     setTimeout(() => {  
-        addMessage("Xin chào! Mình có thể giúp bạn:\n-một số câu hỏi \n về học tập \n-  đặc biệt là những câu hỏi liên quan đến môn TOÁN ANH & VĂN các kiến thức thi vào 10!", false);  
+        addMessage("Xin chào! Mình có thể giải thích về:\n- Ngữ pháp tiếng Anh (câu bị động, điều kiện)\n- Quy tắc trọng âm\n- Cách dùng giới từ/liên từ\nHãy hỏi mình bất cứ điều gì!", false);  
     }, 500);  
 });  
   </script>
