@@ -25,12 +25,21 @@
 
 
   <style>
+   /* margin: 0; padding: 0;: Loại bỏ khoảng cách mặc định của tất cả phần tử.
+box-sizing: border-box;: Đảm bảo chiều rộng/chiều cao của phần tử bao gồm cả padding và border (tránh tràn layout). */
    * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
+/*font-family: Sử dụng font chữ Roboto.
+background-color: Màu nền xám nhạt.
+display: flex: Biến body thành flex container.
+justify-content: center: Căn giữa theo chiều ngang.
+align-items: center: Căn giữa theo chiều dọc.
+height: 100vh: Chiều cao bằng 100% viewport (toàn màn hình). */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
@@ -40,6 +49,12 @@ body {
   height: 100vh;
 }
 
+/*width: 400px: Độ rộng cố định.
+background-color: Nền trắng.
+border-radius: Bo góc 12px.
+box-shadow: Đổ bóng mờ.
+overflow: hidden: Ẩn nội dung tràn ra ngoài.
+flex-direction: column: Sắp xếp các phần tử con theo chiều dọc.*/
 .chat-container {
   width: 400px;
   background-color: #fff;
@@ -50,6 +65,10 @@ body {
   flex-direction: column;
 }
 
+/*background-color: Màu xanh lá.
+color: Chữ trắng.
+padding: Khoảng cách nội dung 16px.
+text-align: left: Căn trái tiêu đề.*/
 .chat-header {
   background-color: #2ecc71;
   color: white;
@@ -59,10 +78,14 @@ body {
   font-size: 20px;
 }
 
+/*căn trái 10px*/
 .chat-header span {
-  margin-left: 10px;
+  margin-left: 10px; 
 }
 
+/*height: 300px: Chiều cao cố định.
+overflow-y: auto: Thanh cuộn dọc khi nội dung dài.
+gap: 10px: Khoảng cách giữa các tin nhắn.*/
 .chat-box {
   padding: 16px;
   height: 300px;
@@ -73,6 +96,10 @@ body {
   gap: 10px;
 }
 
+/*background-color: Màu xám nhạt.
+border-radius: Bo góc 15px.
+max-width: 80%: Giới hạn độ rộng tin nhắn.
+align-self: flex-start: Căn tin nhắn sang trái.*/
 .bot-message {
   background-color: #efefef;
   padding: 10px 14px;
@@ -81,6 +108,8 @@ body {
   align-self: flex-start;
 }
 
+/*background-color: Màu xanh nhạt.
+align-self: flex-end: Căn tin nhắn sang phải*/
 .user-message {
   background-color: #d1ecf1;
   padding: 10px 14px;
@@ -89,12 +118,17 @@ body {
   align-self: flex-end;
 }
 
+/*display: flex: Sắp xếp ô input và nút gửi trên cùng 1 hàng.
+border-top: Đường kẻ ngang phân cách.*/
 .chat-input {
   display: flex;
   border-top: 1px solid #ddd;
   padding: 10px;
 }
 
+/*flex: 1: Chiếm toàn bộ khoảng trống còn lại.
+border-radius: 20px: Bo góc tròn.
+outline: none: Loại bỏ viền focus mặc định.*/
 .chat-input input {
   flex: 1;
   padding: 10px;
@@ -104,6 +138,9 @@ body {
   outline: none;
 }
 
+/*background-color: Màu xanh lá (giống header).
+transition: Hiệu ứng đổi màu mượt khi hover.
+cursor: pointer: Biểu tượng bàn tay khi di chuột vào.*/
 .chat-input button {
   margin-left: 10px;
   padding: 10px 20px;
@@ -116,38 +153,45 @@ body {
   transition: background-color 0.3s ease;
 }
 
+/*Đổi màu nút sang xanh đậm hơn khi zoom hover.*/
 .chat-input button:hover {
-  background-color: #27ae60;
+  background-color: #27ae60; 
 }
 
   </style>
   <script>
+    // Khai báo biến chatBox
 const chatBox = document.getElementById("chat-box");
 
+// Người dùng nhập tin nhắn 
 function sendMessage() {
-  const input = document.getElementById("user-input");
-  const message = input.value.trim();
-  if (message === "") return;
+  const input = document.getElementById("user-input"); // // Lấy ô nhập tin nhắn  
+  const message = input.value.trim();  // Lấy nội dung, xóa khoảng trắng thừa  
+  if (message === "") return; // Bỏ qua nếu rỗng
 
-  appendMessage("user", message);
-  getBotResponse(message.toLowerCase());
-  input.value = "";
+  appendMessage("user", message); // Hiển thị tin nhắn người dùng  
+  getBotResponse(message.toLowerCase()); // Gọi bot phản hồi (chuyển sang chữ thường)  
+  input.value = ""; // Xóa ô nhập 
 }
 
 function appendMessage(sender, text) {
-  const msg = document.createElement("div");
-  msg.classList.add(sender);
-  msg.textContent = (sender === "user" ? "Bạn: " : "Bot: ") + text;
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  const msg = document.createElement("div"); // Tạo thẻ div mới  
+  msg.classList.add(sender); // Thêm class "user" hoặc "bot"
+  msg.textContent = (sender === "user" ? "Bạn: " : "Bot: ") + text; // // Thêm người dùng vào bot trên phần chat
+  chatBox.appendChild(msg); // Đưa tin nhắn vào chat-box 
+  chatBox.scrollTop = chatBox.scrollHeight; // // Tự động cuộn xuống dưới
 }
 
-function getBotResponse(input) {
-  let response = "Xin lỗi, mình chưa hiểu câu hỏi.";
+function getBotResponse(input) { // Gọi getBotResponse() để xử lý và trả lời.
+  let response = "Xin lỗi, mình chưa hiểu câu hỏi."; // Câu mặc định  
+
 
   // Các chủ đề tiếng Anh
+  
+  // Kiểm tra từ khóa trong tin nhắn và trả lời tương ứng 
   if (input.includes("câu bị động")) {
     response = "Câu bị động: S + be + V3/ed. Ví dụ: The cake is made by her.";
+      // ... (các điều kiện khác tương tự)  
   } else if (input.includes("câu điều kiện")) {
     response = "Câu điều kiện: If + S + V, S + will/can... Ví dụ: If it rains, I will stay home.";
   } else if (input.includes("mệnh đề quan hệ")) {
@@ -174,15 +218,15 @@ function getBotResponse(input) {
   // Toán học
   else if (input.includes("rút gọn biểu thức chứa căn")) {
     response = "Bạn cần dùng quy tắc khai căn, nhân liên hợp để rút gọn biểu thức.";
-  } else if (input.includes("tam giác đồng dạng")) {
-    response = "Hai tam giác đồng dạng khi có góc bằng nhau và tỉ số cạnh tương ứng bằng nhau.";
+  } else if (input.includes("tứ giác nội tiếp")) {
+    response = "Là tứ giác có bốn đỉnh cách đều một điểm cố định tức là tồn tại điểm O sau cho OA = OB = OC = OD. Cách chứng minh: Tổng 2 góc đối bằng 180° , góc ngoài bằng góc đối trong , hai góc cùng nhìn 1 cạnh dưới góc bằng nhau , 4 đỉnh cùng cách nhau 1 điểm.";
   } else if (input.includes("pytago")) {
     response = "Định lý Pytago: Trong tam giác vuông, a² + b² = c² (với c là cạnh huyền).";
   } else if (input.includes("sin cos tan cot")) {
     response = "Tỉ số lượng giác: sin = đối/huyền, cos = kề/huyền, tan = đối/kề, cot = kề/đối.";
   }
 
-  appendMessage("bot", response);
+  appendMessage("bot", response); // Hiển thị phản hồi của bot  
 }
 
   
