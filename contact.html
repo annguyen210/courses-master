@@ -1,0 +1,191 @@
+<!DOCTYPE html>  
+<html lang="vi">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Chatbot Tiếng Việt</title>  
+    <link rel="stylesheet" href="styles.css">  
+</head>  
+<body>  
+    <div class="chat-container">  
+        <div class="chat-header">  
+            <h1>Chatbot AI HỌC TẬP ✅</h1>  
+        </div>  
+        <div class="chat-messages" id="chat-messages"></div>  
+        <div class="chat-input">  
+            <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn..."> 
+            <button id="send-button">Gửi</button>  
+        </div>  
+    </div>  
+  <style>
+    body {  
+    font-family: Arial, sans-serif;  
+    margin: 0;  
+    padding: 0;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    height: 100vh;  
+    background-color: #f5f5f5;  
+}  
+
+.chat-container {  
+    width: 400px;  
+    height: 600px;  
+    border: 1px solid #ccc;  
+    border-radius: 10px;  
+    display: flex;  
+    flex-direction: column;  
+    background-color: white;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+}  
+
+.chat-header {  
+    padding: 15px;  
+    background-color: #4CAF50;  
+    color: white;  
+    border-top-left-radius: 10px;  
+    border-top-right-radius: 10px;  
+    text-align: center;  
+}  
+
+.chat-messages {  
+    flex: 1;  
+    padding: 15px;  
+    overflow-y: auto;  
+}  
+
+.message {  
+    margin-bottom: 10px;  
+    padding: 8px 12px;  
+    border-radius: 18px;  
+    max-width: 70%;  
+}  
+
+.user-message {  
+    background-color: #e3f2fd;  
+    margin-left: auto;  
+    border-bottom-right-radius: 5px;  
+}  
+
+.bot-message {  
+    background-color: #f1f1f1;  
+    margin-right: auto;  
+    border-bottom-left-radius: 5px;  
+}  
+
+.chat-input {  
+    display: flex;  
+    padding: 10px;  
+    border-top: 1px solid #eee;  
+}  
+
+#user-input {  
+    flex: 1;  
+    padding: 10px;  
+    border: 1px solid #ccc;  
+    border-radius: 20px;  
+    outline: none;  
+}  
+
+#send-button {  
+    margin-left: 10px;  
+    padding: 10px 20px;  
+    background-color: #4CAF50;  
+    color: white;  
+    border: none;  
+    border-radius: 20px;  
+    cursor: pointer;  
+}  
+
+#send-button:hover {  
+    background-color: #45a049;  
+}  
+  </style>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {  
+    const chatMessages = document.getElementById('chat-messages');  
+    const userInput = document.getElementById('user-input');  
+    const sendButton = document.getElementById('send-button');  
+
+    // Mở rộng phần phản hồi với kiến thức toán học  
+    const botResponses = {  
+        // Toán học  
+        "định lý pytago": "Trong một tam giác vuông, bình phương cạnh huyền bằng tổng bình phương hai cạnh góc vuông. Công thức: c² = a² + b²",  
+        "định lý pitago": "Trong một tam giác vuông, bình phương cạnh huyền bằng tổng bình phương hai cạnh góc vuông. Công thức: c² = a² + b²",  
+        "công thức pytago": "c² = a² + b² (với c là cạnh huyền, a và b là hai cạnh góc vuông)",  
+        "diện tích hình tròn": "Diện tích hình tròn = πr² (r là bán kính)",  
+        "chu vi hình tròn": "Chu vi hình tròn = 2πr hoặc πd (d là đường kính)", 
+      
+
+        // Giao tiếp cơ bản  
+        "xin chào": "Chào bạn! Mình có thể giúp gì về toán học hoặc các chủ đề khác?",  
+        "bạn là ai": "Mình là chatbot hỗ trợ toán học và kiến thức cơ bản!",  
+        "cảm ơn": "Không có chi! Bạn cần hỏi thêm gì nữa không?",  
+        "mặc định": "Mình chưa hiểu câu hỏi. Bạn có thể hỏi về:\n- Định lý Pytago\n- Công thức hình tròn\n- Hoặc chủ đề khác?"  
+    };  
+
+    // Hàm thêm tin nhắn vào khung chat (giữ nguyên)  
+    function addMessage(text, isUser) {  
+        const messageDiv = document.createElement('div');  
+        messageDiv.classList.add('message');  
+        messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');  
+        messageDiv.textContent = text;  
+        chatMessages.appendChild(messageDiv);  
+        chatMessages.scrollTop = chatMessages.scrollHeight;  
+    }  
+
+    // Cải tiến hàm nhận diện câu hỏi  
+    function getBotResponse(userMessage) {  
+        userMessage = userMessage.toLowerCase().trim();  
+        
+        // Kiểm tra các từ khóa chính xác hơn  
+        if (/định lý|pitago|pytago/.test(userMessage)) {  
+            return botResponses["định lý pytago"];  
+        }  
+        if (/diện tích|hình tròn/.test(userMessage)) {  
+            return botResponses["diện tích hình tròn"];  
+        }  
+        if (/chu vi|hình tròn/.test(userMessage)) {  
+            return botResponses["chu vi hình tròn"];  
+        }  
+        
+        // Kiểm tra các từ khóa thông thường  
+        for (const [keyword, response] of Object.entries(botResponses)) {  
+            if (userMessage.includes(keyword)) {  
+                return response;  
+            }  
+        }  
+        
+        return botResponses["mặc định"];  
+    }  
+
+    // Giữ nguyên phần xử lý sự kiện  
+    function handleUserInput() {  
+        const message = userInput.value;  
+        if (message.trim() === '') return;  
+        
+        addMessage(message, true);  
+        userInput.value = '';  
+        
+        setTimeout(() => {  
+            const response = getBotResponse(message);  
+            addMessage(response, false);  
+        }, 500);  
+    }  
+
+    sendButton.addEventListener('click', handleUserInput);  
+    userInput.addEventListener('keypress', function(e) {  
+        if (e.key === 'Enter') {  
+            handleUserInput();  
+        }  
+    });  
+
+    // Lời chào đầu tiên  
+    setTimeout(() => {  
+        addMessage("Xin chào! Mình có thể giúp bạn:\n-một số câu hỏi \n về học tập \n-  đặc biệt là những câu hỏi liên quan đến môn TOÁN ANH & VĂN các kiến thức thi vào 10!", false);  
+    }, 500);  
+});  
+  </script>
+</body>  
+</html>  
