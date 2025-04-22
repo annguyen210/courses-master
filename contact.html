@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot AI Học Tập</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>AI CHAT HỌC TẬP 🎓</h2>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <div class="bot-message">Xin chào! Mình có thể giải thích về một số câu hỏi liên quan đến học tập!</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn...">
+      <button onclick="sendMessage()">Gửi</button>
+    </div>
+  </div>
+<style>
+    
+    
+  
+   /* margin: 0; padding: 0;: Loại bỏ khoảng cách mặc định của tất cả phần tử.
+box-sizing: border-box;: Đảm bảo chiều rộng/chiều cao của phần tử bao gồm cả padding và border (tránh tràn layout). */
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+/*font-family: Sử dụng font chữ Roboto.
+background-color: Màu nền xám nhạt.
+display: flex: Biến body thành flex container.
+justify-content: center: Căn giữa theo chiều ngang.
+align-items: center: Căn giữa theo chiều dọc.
+height: 100vh: Chiều cao bằng 100% viewport (toàn màn hình). */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/*width: 400px: Độ rộng cố định.
+background-color: Nền trắng.
+border-radius: Bo góc 12px.
+box-shadow: Đổ bóng mờ.
+overflow: hidden: Ẩn nội dung tràn ra ngoài.
+flex-direction: column: Sắp xếp các phần tử con theo chiều dọc.*/
+.chat-container {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/*background-color: Màu xanh lá.
+color: Chữ trắng.
+padding: Khoảng cách nội dung 16px.
+text-align: left: Căn trái tiêu đề.*/
+.chat-header {
+  background-color: #2ecc71;
+  color: white;
+  padding: 16px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/*căn trái 10px*/
+.chat-header span {
+  margin-left: 10px; 
+}
+
+/*height: 300px: Chiều cao cố định.
+overflow-y: auto: Thanh cuộn dọc khi nội dung dài.
+gap: 10px: Khoảng cách giữa các tin nhắn.*/
+.chat-box {
+  padding: 16px;
+  height: 300px;
+  overflow-y: auto;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/*background-color: Màu xám nhạt.
+border-radius: Bo góc 15px.
+max-width: 80%: Giới hạn độ rộng tin nhắn.
+align-self: flex-start: Căn tin nhắn sang trái.*/
+.bot-message {
+  background-color: #efefef;
+  padding: 10px 14px;
+  border-radius: 15px;
+  max-width: 80%;
+  align-self: flex-start;
+}
+
+/*background-color: Màu xanh nhạt.
+align-self: flex-end: Căn tin nhắn sang phải*/
+.user-message {
+  background-color: #d1ecf1;
+  padding: 10px 14px;
+  border-radius: 15px;
+  max-width: 80%;
+  align-self: flex-end;
+}
+
+/*display: flex: Sắp xếp ô input và nút gửi trên cùng 1 hàng.
+border-top: Đường kẻ ngang phân cách.*/
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+
+/*flex: 1: Chiếm toàn bộ khoảng trống còn lại.
+border-radius: 20px: Bo góc tròn.
+outline: none: Loại bỏ viền focus mặc định.*/
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+}
+
+/*background-color: Màu xanh lá (giống header).
+transition: Hiệu ứng đổi màu mượt khi hover.
+cursor: pointer: Biểu tượng bàn tay khi di chuột vào.*/
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/*Đổi màu nút sang xanh đậm hơn khi zoom hover.*/
+.chat-input button:hover {
+  background-color: #27ae60; 
+}
+
+  </style>
+  <script>
+    // Khai báo biến chatBox
+const chatBox = document.getElementById("chat-box");
+
+// Người dùng nhập tin nhắn 
+function sendMessage() {
+  const input = document.getElementById("user-input"); // // Lấy ô nhập tin nhắn  
+  const message = input.value.trim();  // Lấy nội dung, xóa khoảng trắng thừa  
+  if (message === "") return; // Bỏ qua nếu rỗng
+
+  appendMessage("user", message); // Hiển thị tin nhắn người dùng  
+  getBotResponse(message.toLowerCase()); // Gọi bot phản hồi (chuyển sang chữ thường)  
+  input.value = ""; // Xóa ô nhập 
+}
+
+function appendMessage(sender, text) {
+  const msg = document.createElement("div"); // Tạo thẻ div mới  
+  msg.classList.add(sender); // Thêm class "user" hoặc "bot"
+  msg.textContent = (sender === "user" ? "Bạn: " : "Bot: ") + text; // // Thêm người dùng vào bot trên phần chat
+  chatBox.appendChild(msg); // Đưa tin nhắn vào chat-box 
+  chatBox.scrollTop = chatBox.scrollHeight; // // Tự động cuộn xuống dưới
+}
+
+function getBotResponse(input) { // Gọi getBotResponse() để xử lý và trả lời.
+  let response = "Xin lỗi, mình chưa hiểu câu hỏi."; // Câu mặc định  
+
+
+  // Các chủ đề tiếng Anh
+  
+  // Kiểm tra từ khóa trong tin nhắn và trả lời tương ứng 
+  if (input.includes("câu bị động")) {
+    response = "Câu bị động: S + be + V3/ed. Ví dụ: The cake is made by her.";
+      // ... (các điều kiện khác tương tự)  
+  } else if (input.includes("câu điều kiện")) {
+    response = "Câu điều kiện: If + S + V, S + will/can... Ví dụ: If it rains, I will stay home.";
+  } else if (input.includes("mệnh đề quan hệ")) {
+    response = "Mệnh đề quan hệ dùng để bổ nghĩa cho danh từ. Ví dụ: The man who lives next door is friendly.";
+  }
+
+  // Ngữ văn
+  else if (input.includes("phương thức biểu đạt")) {
+    response = "Các phương thức biểu đạt gồm: Tự sự (Phương thức biểu đạt tự sự là cách kể lại sự việc, câu chuyện có diễn biến, nhân vật và thường mang thông điệp.) , miêu tả (Phương thức biểu đạt miêu tả là cách dùng ngôn ngữ để làm nổi bật đặc điểm, hình dáng, trạng thái của sự vật, hiện tượng, con người.) ,  biểu cảm (Phương thức biểu đạt biểu cảm là cách thể hiện cảm xúc, tình cảm, suy nghĩ của người viết về một đối tượng nào đó.) , nghị luận ( Phương thức biểu đạt nghị luận là phương thức mà người viết, người nói sử dụng ngôn ngữ để trình bày những ý kiến của mình.) , thuyết minh: Phương thức biểu đạt thuyết minh là cách cung cấp, giới thiệu, giảng giải tri thức về sự vật, hiện tượng một cách khách quan, khoa học..";
+  } else if (input.includes("biện pháp tu từ")) {
+    response = "Biện pháp tu từ gồm: ẩn dụ (ví dụ hóa), hoán dụ (gọi tên khác), điệp từ (lặp lại từ), nhân hóa (vật như người), so sánh, đối lập... Tác dụng: nhấn mạnh ý, tạo cảm xúc, hình ảnh.";
+  }
+
+  // Dàn ý văn nghị luận xã hội
+  else if (input.includes("dàn ý bài văn nghị luận xã hội")) {
+    response = `Dàn ý như sau:\nI. Mở bài: Giới thiệu vấn đề cần bàn.\nII. Thân bài:\n1. Giải thích\n2. Phân tích - nguyên nhân - hậu quả\n3. Giải pháp, bài học\nIII. Kết bài: Khẳng định lại vấn đề.`;
+  }
+
+  // Dàn ý nghị luận văn học
+  else if (input.includes("dàn ý bài văn nghị luận văn học")) {
+    response = `I. Mở bài: Giới thiệu tác phẩm, tác giả.\nII. Thân bài: Tóm tắt nội dung, cảm xúc, phân tích hình ảnh và thông điệp.\nIII. Kết bài: Tổng kết cảm xúc, giá trị tác phẩm.`;
+  }
+
+  // Toán học
+  else if (input.includes("rút gọn biểu thức chứa căn")) {
+    response = "Bạn cần dùng quy tắc khai căn, nhân liên hợp để rút gọn biểu thức.";
+  } else if (input.includes("tứ giác nội tiếp")) {
+    response = "Là tứ giác có bốn đỉnh cách đều một điểm cố định tức là tồn tại điểm O sau cho OA = OB = OC = OD. Cách chứng minh: Tổng 2 góc đối bằng 180° , góc ngoài bằng góc đối trong , hai góc cùng nhìn 1 cạnh dưới góc bằng nhau , 4 đỉnh cùng cách nhau 1 điểm.";
+  } else if (input.includes("pytago")) {
+    response = "Định lý Pytago: Trong tam giác vuông, a² + b² = c² (với c là cạnh huyền).";
+  } else if (input.includes("sin cos tan cot")) {
+    response = "Tỉ số lượng giác: sin = đối/huyền, cos = kề/huyền, tan = đối/kề, cot = kề/đối.";
+  }
+
+  appendMessage("bot", response); // Hiển thị phản hồi của bot  
+}
+</script>
+
+  
+
+</body>
+</html>
+
