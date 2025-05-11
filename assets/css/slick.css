@@ -1,119 +1,137 @@
-/* Slider */
-.slick-slider
+/* Thanh trượt ( Lướt ) */
+.slick-slider 
 {
-    position: relative;
+    position: relative; /* vị trí tương đối */
 
-    display: block;
-    box-sizing: border-box;
+    display: block; /* hiển thị thanh trượt */
+    box-sizing: border-box; /* định dạng hộp */
 
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
-        touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.slick-list
-{
-    position: relative;
-
-    display: block;
-    overflow: hidden;
-
-    margin: 0;
-    padding: 0;
-}
-.slick-list:focus
-{
-    outline: none;
-}
-.slick-list.dragging
-{
-    cursor: pointer;
-    cursor: hand;
+    -webkit-user-select: none; /* chọn văn bản */
+       -moz-user-select: none; /* chọn văn bản */
+        -ms-user-select: none; /* chọn văn bản */
+            user-select: none; /* chọn văn bản */
+ 
+    -webkit-touch-callout: none; /* không gọi lại khi chạm vào */
+    -khtml-user-select: none; /* chọn văn bản */
+    -ms-touch-action: pan-y; /* hành động chạm */
+        touch-action: pan-y; /* hành động chạm */
+    -webkit-tap-highlight-color: transparent; /* màu nền khi chạm vào */
 }
 
-.slick-slider .slick-track,
-.slick-slider .slick-list
+.slick-list /* danh sách các phần tử trong thanh trượt */
 {
-    -webkit-transform: translate3d(0, 0, 0);
-       -moz-transform: translate3d(0, 0, 0);
-        -ms-transform: translate3d(0, 0, 0);
-         -o-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+    position: relative; /* vị trí tương đối */
+
+    display: block; /* hiển thị danh sách */
+    overflow: hidden; /* ẩn đi các phần tử tràn ra ngoài */
+
+    margin: 0; /* khoảng cách từ trên xuống */
+    padding: 0; /* khoảng cách từ trái sang */
+}
+.slick-list:focus /* danh sách được chọn */
+{
+    outline: none; /* không có viền */
 }
 
-.slick-track
+.slick-list.dragging /* danh sách đang kéo */
 {
-    position: relative;
-    top: 0;
-    left: 0;
-
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.slick-track:before,
-.slick-track:after
-{
-    display: table;
-
-    content: '';
-}
-.slick-track:after
-{
-    clear: both;
-}
-.slick-loading .slick-track
-{
-    visibility: hidden;
+    cursor: pointer; /* con trỏ chuột */
+    cursor: hand; /* con trỏ chuột */
 }
 
-.slick-slide
-{
-    display: none;
-    float: left;
 
-    height: 100%;
-    min-height: 1px;
-}
-[dir='rtl'] .slick-slide
+.slick-slider .slick-track, /* thanh trượt */
+.slick-slider .slick-list /* danh sách các phần tử trong thanh trượt */
 {
-    float: right;
+    -webkit-transform: translate3d(0, 0, 0); /* dịch chuyển 3D */
+       -moz-transform: translate3d(0, 0, 0); /* dịch chuyển 3D */
+        -ms-transform: translate3d(0, 0, 0); /* dịch chuyển 3D */
+         -o-transform: translate3d(0, 0, 0); /* dịch chuyển 3D */
+            transform: translate3d(0, 0, 0); /* dịch chuyển 3D */
 }
-.slick-slide img
-{
-    display: block;
-}
-.slick-slide.slick-loading img
-{
-    display: none;
-}
-.slick-slide.dragging img
-{
-    pointer-events: none;
-}
-.slick-initialized .slick-slide
-{
-    display: block;
-}
-.slick-loading .slick-slide
-{
-    visibility: hidden;
-}
-.slick-vertical .slick-slide
-{
-    display: block;
 
-    height: auto;
 
-    border: 1px solid transparent;
+.slick-track /* thanh trượt */
+{
+    position: relative; /* vị trí tương đối */
+
+    top: 0; /* khoảng cách từ trên xuống */
+    left: 0; /* khoảng cách từ trái sang */
+
+    display: block; /* hiển thị thanh trượt */
+
+
+    margin-left: auto; /* khoảng cách từ trái sang */
+    margin-right: auto; /* khoảng cách từ phải sang */
 }
-.slick-arrow.slick-hidden {
-    display: none;
+
+.slick-track:before, /* thanh trượt trước */
+.slick-track:after /* thanh trượt sau */
+{
+    display: table; /* hiển thị bảng */
+
+    content: ''; /* nội dung rỗng */
+}
+
+.slick-track:after /* thanh trượt sau */
+{
+    clear: both; /* xóa cả hai bên */
+}
+
+.slick-loading .slick-track /* thanh trượt đang tải */
+{
+    visibility: hidden; /* ẩn đi thanh trượt */
+}
+
+.slick-slide /* phần tử trong thanh trượt */
+{
+    display: none; /* ẩn đi phần tử */
+    float: left; /* căn trái phần tử */
+    height: 100%; /* chiều cao của phần tử */
+    min-height: 1px; /* chiều cao tối thiểu của phần tử */
+}
+
+[dir='rtl'] .slick-slide /* phần tử trong thanh trượt */
+{
+    float: right; /* căn phải phần tử */
+}
+
+.slick-slide img /* hình ảnh trong phần tử */
+{
+    display: block; /* hiển thị hình ảnh */
+   
+}
+
+.slick-slide.slick-loading img /* hình ảnh trong phần tử đang tải */
+{
+    display: none; /* ẩn đi hình ảnh */
+}
+
+.slick-slide.dragging img /* hình ảnh trong phần tử đang kéo */
+{
+    pointer-events: none; /* không cho phép tương tác với hình ảnh */
+}
+
+
+.slick-initialized .slick-slide /* phần tử trong thanh trượt đã khởi tạo */
+{
+    display: block; /* hiển thị phần tử */
+}
+
+.slick-loading .slick-slide /* phần tử trong thanh trượt đang tải */
+{
+ 
+    visibility: hidden; /* ẩn đi phần tử */
+
+}
+
+.slick-vertical .slick-slide /* phần tử trong thanh trượt dọc */
+{
+    display: block; /* hiển thị phần tử */
+    height: auto; /* chiều cao tự động */
+    border: 1px solid transparent; /* viền trong suốt */
+}
+
+.slick-arrow.slick-hidden { /* mũi tên trong thanh trượt ẩn */
+    display: none; /* ẩn đi mũi tên */
 }

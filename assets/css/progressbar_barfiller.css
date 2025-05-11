@@ -1,98 +1,102 @@
 
 
-/* Custom Code skills */
-.single-skill{
-  display: flex;
+
+.single-skill{  /* khung chứa các phần giới thiệu về web (Phần với hơn 20+ bt , bài giảng , tài liệu % kiến thức ) */
+  display: flex; /* nằm ngang */
 }
 
 .single-skill span {
-	color: #79838b;
-	font-size: 13px;
-	font-weight: 300;
-	letter-spacing: 0;
-	margin-bottom: 14px;
-	display: block;
+	color: #79838b; 
+	font-size: 13px; /* chữ nhỏ (13px) , font mỏng (300) */
+	font-weight: 300;  
+	letter-spacing: 0; /* khoảng cách giữa các chữ cái */
+	margin-bottom: 14px; /* Tạo khung*/
+	display: block;  /* luôn được xuống dòng và chiếm toàn bộ width  */
 }
 .single-skill .bar-progress {
-	width: 100%;
+	width: 100%; /* chiều rộng của thanh bar */
 }
 .single-skill .bar-title {
   width: 20%;
-  margin-bottom: 19px;
+  margin-bottom: 19px; /* Tạo khung*/
 }
 
 .skills-content {
-  padding-top: 200px;
-  padding-left: 70px;
+  padding-top: 200px; /* khoảng cách từ trên xuống */
+  padding-left: 70px; /* khoảng cách từ trái sang */
 }
 
 .skills-shape-bg {
-  height: 651px;
-  width: 868px;
-  position: absolute;
-  content: "";
-  border: 2px solid #4d4d4d;
-  left: 40%;
-  top: 255px;
+  height: 651px; /* chiều cao của khung */
+  width: 868px; /* chiều rộng của khung */
+  position: absolute; /* vị trí tuyệt đối */
+  content: ""; 
+  border: 2px solid #4d4d4d; /* viền khung & độ dày của nó */  /* màu viền khung */ 
+  left: 40%; /* khoảng cách từ trái sang */
+  top: 255px; /* khoảng cách từ trên xuống */
 }
 
 .skills-shape-bg::before {
-  position: absolute;
+  position: absolute; /* vị trí tuyệt đối */
   content: "";
-  height: 465px;
-  width: 300px;
-  border: 2px solid #4d4d4d;
-  left: -35%;
-  top: 50%;
-  transform: translateY(-50%);
-  border-right: 0;
+  height: 465px; /* chiều cao của khung */
+  width: 300px; /* chiều rộng của khung */
+  border: 2px solid #4d4d4d; /* viền khung & độ dày của nó */  /* màu viền khung */
+  left: -35%; /* khoảng cách từ trái sang */
+  top: 50%; /* khoảng cách từ trên xuống */
+  transform: translateY(-50%); /* dịch chuyển lên trên 50% chiều cao của khung */
+  border-right: 0; /* xóa viền bên phải */
 }
-
 
 
 /* Default */
 .barfiller {
-	width: 100%;
-	height: 10px;
-	background: #f6f9fc;
-  position: relative;
-  border-radius: 5px;
+	width: 100%; /* chiều rộng của thanh bar */
+  height: 10px; /* chiều cao của thanh bar */
+  background: #f6f9fc; /* màu nền của thanh bar */
+  position: relative; /* vị trí tương đối */
+  border-radius: 5px; /* bo tròn các góc của thanh bar */
+	height: 10px; /* chiều cao của thanh bar */
+  background: #f6f9fc; /* màu nền của thanh bar */
+  position: relative; /* vị trí tương đối */
+  border-radius: 5px; /* bo tròn các góc của thanh bar */
+
 }
 
-.barfiller .fill {
-  display: block;
-  position: relative;
-  width: 0px;
-  height: 100%;
-  background: #333;
-  z-index: 1;
-  border-radius: 5px;
+.barfiller .fill { 
+  display: block; /* hiển thị thanh bar */
+  position: relative; /* vị trí tương đối */
+  width: 0px; /* chiều rộng của thanh bar */
+  height: 100%; /* chiều cao của thanh bar */
+  background: #333; /* màu nền của thanh bar */
+  z-index: 1; /* độ ưu tiên hiển thị của thanh bar */
+  border-radius: 5px; /* bo tròn các góc của thanh bar */
 }
 
-.barfiller .tipWrap { display: none; }
+.barfiller .tipWrap { display: none; } /* ẩn đi tipWrap */
 
-.barfiller .tip {
-  margin-top: -28px;
-  padding: 2px 4px;
-  font-size: 16px;
+.barfiller .tip { /* hiển thị tip */
+  margin-top: -28px; /* khoảng cách từ trên xuống */
+  padding: 2px 4px; /* khoảng cách từ trái sang */
+  font-size: 16px; /* kích thước chữ */
   color: #09cc7f;
-  left: 0px;
-  position: absolute;
-  z-index: 2;
-  background: transparent;
-  font-weight: 800;
+  left: 0px; /* khoảng cách từ trái sang */
+  position: absolute; /* vị trí tuyệt đối */
+  z-index: 2; /* độ ưu tiên hiển thị của tip */
+  background: transparent; /* màu nền của tip */
+  font-weight: 800; /* độ đậm của chữ */
 }
 
-.barfiller .tip:after {
-  border: solid;
-  border-color: rgba(0,0,0,.8) transparent;
-  border-width: 6px 6px 0 6px;
+.barfiller .tip:after { 
+  border: solid; /* viền của tip */
+  border-color: rgba(0,0,0,.8) transparent; /* màu viền của tip */
+  border-width: 6px 6px 0 6px; /* độ dày của viền */
   content: "";
-  display: block;
-  position: absolute;
-  left: 9px;
-  top: 100%;
-  z-index: 9;
-  display: none;
+  display: block; /* hiển thị tip */
+  position: absolute; /* vị trí tuyệt đối */
+  left: 9px; /* khoảng cách từ trái sang */
+  top: 100%; /* khoảng cách từ trên xuống */
+  z-index: 9; /* độ ưu tiên hiển thị của tip */
+  display: none; /* ẩn đi tip */
   
 }

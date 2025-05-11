@@ -1,138 +1,143 @@
-.nice-select {
-  -webkit-tap-highlight-color: transparent;
-  background-color: #fff;
-  border-radius: 5px;
-  border: solid 1px #e8e8e8;
-  box-sizing: border-box;
-  clear: both;
-  cursor: pointer;
-  display: block;
-  float: left;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: normal;
-  height: 42px;
-  line-height: 40px;
-  outline: none;
-  padding-left: 18px;
-  padding-right: 30px;
-  position: relative;
-  text-align: left !important;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  white-space: nowrap;
-  width: auto; }
-  .nice-select:hover {
-    border-color: #dbdbdb; }
-  .nice-select:active, .nice-select.open, .nice-select:focus {
-    border-color: #999; }
-  .nice-select:after {
-    border-bottom: 2px solid #999;
-    border-right: 2px solid #999;
+.nice-select { /* Chọn phần tử đẹp */
+  -webkit-tap-highlight-color: transparent; /* Màu nền khi chạm vào */
+  background-color: #fff; /* Màu nền */
+  border-radius: 5px; /* Bo tròn các góc */
+  border: solid 1px #e8e8e8; /* Viền khung */
+  box-sizing: border-box; /* Định dạng hộp */
+  clear: both; /* Xóa các phần tử bên trái và bên phải */
+  cursor: pointer; /* Con trỏ chuột */
+  display: block; /* Hiển thị phần tử */
+  float: left; /* Nằm bên trái */
+  font-family: inherit; /* Phông chữ kế thừa */
+  font-size: 14px; /* Kích thước chữ */
+  font-weight: normal; /* Độ dày chữ */
+  height: 42px; /* Chiều cao */
+  line-height: 40px; /* Chiều cao dòng */
+  outline: none; /* Không có viền */
+  padding-left: 18px; /* Khoảng cách từ trái sang */
+  padding-right: 30px;  /* Khoảng cách từ phải sang */
+  position: relative; /* Vị trí tương đối */
+  text-align: left !important; /* Căn trái */
+  -webkit-transition: all 0.2s ease-in-out; /* Chuyển tiếp */
+  transition: all 0.2s ease-in-out; /* Chuyển tiếp */
+  -webkit-user-select: none; /* Không cho phép chọn văn bản */
+     -moz-user-select: none; /* Không cho phép chọn văn bản */
+      -ms-user-select: none; /* Không cho phép chọn văn bản */
+          user-select: none; /* Không cho phép chọn văn bản */
+    
+  white-space: nowrap; /* Không cho phép xuống dòng */
+  width: auto; } /* Phần tử đẹp */
+  .nice-select:hover { /* Khi di chuột qua */
+    border-color: #dbdbdb; } /* Viền khung */
+  .nice-select:active, .nice-select.open, .nice-select:focus { /* Khi nhấn vào */
+    border-color: #999; } /* Viền khung */
+  .nice-select:after { /* Mũi tên chỉ xuống */
+    border-bottom: 2px solid #999; /* Viền dưới */
+    border-right: 2px solid #999; /* Viền bên phải */
     content: '';
-    display: block;
-    height: 5px;
-    margin-top: -4px;
-    pointer-events: none;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    -webkit-transform-origin: 66% 66%;
-        -ms-transform-origin: 66% 66%;
-            transform-origin: 66% 66%;
-    -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-    -webkit-transition: all 0.15s ease-in-out;
-    transition: all 0.15s ease-in-out;
-    width: 5px; }
-  .nice-select.open:after {
-    -webkit-transform: rotate(-135deg);
-        -ms-transform: rotate(-135deg);
-            transform: rotate(-135deg); }
-  .nice-select.open .list {
-    opacity: 1;
-    pointer-events: auto;
-    -webkit-transform: scale(1) translateY(0);
-        -ms-transform: scale(1) translateY(0);
-            transform: scale(1) translateY(0); }
-  .nice-select.disabled {
-    border-color: #ededed;
-    color: #999;
-    pointer-events: none; }
-    .nice-select.disabled:after {
-      border-color: #cccccc; }
-  .nice-select.wide {
-    width: 100%; }
-    .nice-select.wide .list {
-      left: 0 !important;
-      right: 0 !important; }
-  .nice-select.right {
-    float: right; }
-    .nice-select.right .list {
-      left: auto;
-      right: 0; }
-  .nice-select.small {
-    font-size: 12px;
-    height: 36px;
-    line-height: 34px; }
-    .nice-select.small:after {
-      height: 4px;
-      width: 4px; }
-    .nice-select.small .option {
-      line-height: 34px;
-      min-height: 34px; }
-  .nice-select .list {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 0 1px rgba(68, 68, 68, 0.11);
-    box-sizing: border-box;
-    margin-top: 4px;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    -webkit-transform-origin: 50% 0;
-        -ms-transform-origin: 50% 0;
-            transform-origin: 50% 0;
-    -webkit-transform: scale(0.75) translateY(-21px);
-        -ms-transform: scale(0.75) translateY(-21px);
-            transform: scale(0.75) translateY(-21px);
-    -webkit-transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
-    transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
-    z-index: 9; }
-    .nice-select .list:hover .option:not(:hover) {
-      background-color: transparent !important; }
-  .nice-select .option {
-    cursor: pointer;
-    font-weight: 400;
-    line-height: 40px;
-    list-style: none;
-    min-height: 40px;
-    outline: none;
-    padding-left: 18px;
-    padding-right: 29px;
-    text-align: left;
-    -webkit-transition: all 0.2s;
-    transition: all 0.2s; }
-    .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
-      background-color: #f6f6f6; }
-    .nice-select .option.selected {
-      font-weight: bold; }
-    .nice-select .option.disabled {
-      background-color: transparent;
-      color: #999;
-      cursor: default; }
+    display: block; /* Hiển thị */
+    height: 5px; /* Chiều cao */
+    margin-top: -4px; /* Khoảng cách từ trên xuống */
+    pointer-events: none; /* Không cho phép tương tác */
+    position: absolute; /* Vị trí tuyệt đối */
+    right: 12px; /* Khoảng cách từ bên phải sang */
+    top: 50%; /* Khoảng cách từ trên xuống */
+    -webkit-transform-origin: 66% 66%; /* Điểm gốc chuyển đổi */
+        -ms-transform-origin: 66% 66%; /* Điểm gốc chuyển đổi */
+            transform-origin: 66% 66%; /* Điểm gốc chuyển đổi */
+    -webkit-transform: rotate(45deg); /* Xoay 45 độ */
+        -ms-transform: rotate(45deg); /* Xoay 45 độ */
+            transform: rotate(45deg); /* Xoay 45 độ */
+    -webkit-transition: all 0.15s ease-in-out; /* Chuyển tiếp */
+   
+    transition: all 0.15s ease-in-out; /* Chuyển tiếp */
+    width: 5px; } /* Mũi tên chỉ xuống */
+  .nice-select.open:after { /* Khi mở */
+    -webkit-transform: rotate(-135deg); /* Xoay -135 độ */
+        -ms-transform: rotate(-135deg); /* Xoay -135 độ */
+            transform: rotate(-135deg); } /* Khi mở */
+  .nice-select.open .list { /* Khi mở danh sách */
+    opacity: 1; /* Độ trong suốt */
+    pointer-events: auto; /* Cho phép tương tác */
+    -webkit-transform: scale(1) translateY(0); /* Chuyển đổi */
+        -ms-transform: scale(1) translateY(0); /* Chuyển đổi */
+            transform: scale(1) translateY(0); /* Chuyển đổi */
+       }
+  .nice-select.disabled { /* Khi vô hiệu hóa */
+    border-color: #ededed; /* Viền khung */
+    color: #999; /* Màu chữ */
+    pointer-events: none; } /* Không cho phép tương tác */
+    .nice-select.disabled:after { /* Khi vô hiệu hóa */
+      border-color: #cccccc; } /* Viền khung */
+  .nice-select.wide { /* Khi rộng */
+    width: 100%; } /* Khi rộng */
+    .nice-select.wide .list { /* Khi mở danh sách */
+      left: 0 !important; /* Khoảng cách từ bên trái sang */
+      right: 0 !important; }  /* Khi mở danh sách */
+  .nice-select.right { /* Khi nằm bên phải */
+    float: right; }   /* Nằm bên phải */
+    .nice-select.right .list { /* Khi mở danh sách */
+      left: auto; /* Khoảng cách từ bên trái sang */
+      right: 0; } /* Khoảng cách từ bên phải sang */
+  .nice-select.small { /* Khi nhỏ */
+    font-size: 12px; /* Kích thước chữ */
+    height: 36px; /* Chiều cao */
+    line-height: 34px; }  /* Khi nhỏ */
+    .nice-select.small:after { /* Mũi tên chỉ xuống */
+      height: 4px; /* Chiều cao */
+      width: 4px; } /* Mũi tên chỉ xuống */
+    .nice-select.small .option { /* Khi mở danh sách */
+      line-height: 34px; /* Chiều cao */
+      min-height: 34px; } /* Khi mở danh sách */
+  .nice-select .list { /* Danh sách */
+    background-color: #fff; /* Màu nền */
+    border-radius: 5px; /* Bo tròn các góc */
+    box-shadow: 0 0 0 1px rgba(68, 68, 68, 0.11); /* Bóng đổ */
+    box-sizing: border-box; /* Định dạng hộp */
+    margin-top: 4px; /* Khoảng cách từ trên xuống */
+    opacity: 0; /* Độ trong suốt */
+    overflow: hidden;   /* Ẩn đi các phần tử tràn ra ngoài */
+    padding: 0; /* Khoảng cách từ trên xuống */
+    pointer-events: none; /* Không cho phép tương tác */
+    position: absolute; /* Vị trí tuyệt đối */
+    top: 100%; /* Khoảng cách từ trên xuống */
+    left: 0; /* Khoảng cách từ bên trái sang */
+    -webkit-transform-origin: 50% 0; /* Điểm gốc chuyển đổi */
+        -ms-transform-origin: 50% 0; /* Điểm gốc chuyển đổi */
+            transform-origin: 50% 0; /* Điểm gốc chuyển đổi */
+    -webkit-transform: scale(0.75) translateY(-21px); /* Chuyển đổi */
+        -ms-transform: scale(0.75) translateY(-21px); /* Chuyển đổi */
+            transform: scale(0.75) translateY(-21px); /* Chuyển đổi */
+    -webkit-transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out; /* Chuyển tiếp */
+      
+    transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out; /* Chuyển tiếp */
+    z-index: 9; } /* Danh sách */
+    .nice-select .list:hover .option:not(:hover) { /* Khi di chuột qua */
+      background-color: transparent !important; } /* Màu nền */
+  .nice-select .option { /* Tùy chọn */
+    cursor: pointer;  /* Con trỏ chuột */
+    font-weight: 400; /* Độ dày chữ */
+    line-height: 40px; /* Chiều cao */
+    list-style: none; /* Kiểu danh sách */
+    min-height: 40px; /* Chiều cao tối thiểu */
+    outline: none; /* Không có viền */
+    padding-left: 18px; /* Khoảng cách từ trái sang */
+    padding-right: 29px; /* Khoảng cách từ phải sang */
+    text-align: left; /* Căn trái */
+    -webkit-transition: all 0.2s; /* Chuyển tiếp */
+   
+    transition: all 0.2s; } /* Tùy chọn */
+    .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus { /* Khi di chuột qua */
+      background-color: #f6f6f6; } /* Màu nền */
+    .nice-select .option.selected { /* Khi chọn */
+      font-weight: bold; } /* Độ dày chữ */
+    .nice-select .option.disabled { /* Khi vô hiệu hóa */
+      background-color: transparent; /* Màu nền */
+      color: #999; /* Màu chữ */
+      cursor: default; } /* Con trỏ chuột */
 
-.no-csspointerevents .nice-select .list {
-  display: none; }
+.no-csspointerevents .nice-select .list { /* Khi mở danh sách */
+  display: none; } /* Ẩn đi danh sách */
 
-.no-csspointerevents .nice-select.open .list {
-  display: block; }
+.no-csspointerevents .nice-select.open .list { /* Khi mở danh sách */
+  display: block; } /* Hiển thị danh sách */
