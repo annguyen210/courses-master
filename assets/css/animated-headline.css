@@ -1,6 +1,6 @@
 /* -------------------------------- 
 
-Primary style
+iconic animated headline phần icon load trang web khi mình chuyển sang một trang khác hoặc load lại trang & mới vào web  */
 
 -------------------------------- */
 *, *::after, *::before {
@@ -108,7 +108,7 @@ a {
 
 /* -------------------------------- 
 
-xrotate-1 
+x.xoay-1 
 
 -------------------------------- */
 .cd-headline.rotate-1 .cd-words-wrapper {
@@ -287,7 +287,7 @@ xtype
   overflow: hidden;
 }
 .cd-headline.type .cd-words-wrapper::after {
-  /* vertical bar */
+  /* thanh dọc */
   content: '';
   position: absolute;
   right: 0;
@@ -387,7 +387,7 @@ xtype
 }
 /* -------------------------------- 
 
-xrotate-2 
+x.xoay-2 
 
 -------------------------------- */
 .cd-headline.rotate-2 .cd-words-wrapper {
@@ -612,7 +612,7 @@ xloading-bar
 
 /* -------------------------------- 
 
-xslide 
+xslide , khi chuyển sang một trang khác
 
 -------------------------------- */
 .cd-headline.slide span {
@@ -999,8 +999,7 @@ xrotate-3
 }
 /* -------------------------------- 
 
-xscale 
-
+x(tỉ lệ)
 -------------------------------- */
 .cd-headline.scale b {
   opacity: 0;
@@ -1136,7 +1135,7 @@ xscale
 }
 /* -------------------------------- 
 
-xpush 
+xpush (x đẩy)
 
 -------------------------------- */
 .cd-headline.push b {

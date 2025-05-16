@@ -230,118 +230,118 @@ ul.gj-list-bootstrap li { /* về các ô nhập liệu */
     padding: 0px; /* không có khoảng cách */
 }
 
-ul.gj-list-bootstrap li [data-role="wrapper"] {
-    padding: 0px 10px;
+ul.gj-list-bootstrap li [data-role="wrapper"] { /* về các ô nhập liệu */
+    padding: 0px 10px; /* khoảng cách từ trái sang và từ trên xuống */
 }
 
-ul.gj-list-bootstrap li [data-role="checkbox"] {
-    width: 24px;
-    padding: 3px;
+ul.gj-list-bootstrap li [data-role="checkbox"] { /* về các ô nhập liệu */
+    width: 24px; /* chiều rộng của ô nhập liệu */
+    padding: 3px; /* khoảng cách từ trái sang và từ trên xuống */
 }
 
-ul.gj-list-bootstrap li [data-role="image"] {
-    width: 24px;
-    height: 24px;
+ul.gj-list-bootstrap li [data-role="image"] { /* về các ô nhập liệu */  
+    width: 24px; /* chiều rộng của ô nhập liệu */
+    height: 24px; /* chiều cao của ô nhập liệu */
 }
 
-ul.gj-list-bootstrap li [data-role="display"] {
-    padding: 8px 0px 8px 4px;
+ul.gj-list-bootstrap li [data-role="display"] { /* về các ô nhập liệu */
+    padding: 8px 0px 8px 4px; /* khoảng cách từ trái sang và từ trên xuống */
 }
 
-.list-group-item.active ul li, .list-group-item.active:focus ul li, .list-group-item.active:hover ul li {
-    text-shadow: none;
-    color:initial;
+.list-group-item.active ul li, .list-group-item.active:focus ul li, .list-group-item.active:hover ul li { /* khi ô nhập liệu được chọn */
+    text-shadow: none; /* không có bóng đổ */
+    color:initial; /* màu chữ của ô nhập liệu */
 }
 
 /* List - Material Design */
-ul.gj-list-md {
-    padding: 0px;
-    list-style: none;
-    list-style-type: none;
-    line-height: 24px;
-    letter-spacing: 0;
-    color: #616161; /* Gray 700 */
+ul.gj-list-md { /* về các ô nhập liệu */
+    padding: 0px; /* không có khoảng cách */
+    list-style: none; /* không có danh sách */
+    list-style-type: none; /* không có danh sách */
+    line-height: 24px; /* chiều cao của ô nhập liệu */
+    letter-spacing: 0; /* khoảng cách giữa các chữ */
+    color: #616161; /* màu chữ của ô nhập liệu */
 }
 
-ul.gj-list-md li {
-    display: list-item;
-    list-style-type: none;
-    padding: 0px;
-    min-height: unset;
-    box-sizing: border-box;
-    align-items: center;
-    cursor: default;
-    overflow: hidden;
+ul.gj-list-md li { /* về các ô nhập liệu */
+    display: list-item; /* hiển thị ô nhập liệu */
+    list-style-type: none; /* không có danh sách */
+    padding: 0px;   /* không có khoảng cách */
+    min-height: unset; /* chiều cao tối thiểu của ô nhập liệu */
+    box-sizing: border-box; /* hộp chứa các phần tử */
+    align-items: center; /* căn giữa văn bản */
+    cursor: default; /* con trỏ chuột */
+    overflow: hidden; /* ẩn đi phần tử */
 
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: .04em;
-    line-height: 1;
+    font-family: "Roboto","Helvetica","Arial",sans-serif; /* font chữ của ô nhập liệu */
+    font-size: 16px; /* kích thước chữ của ô nhập liệu */
+    font-weight: 400; /* độ đậm của chữ */
+    letter-spacing: .04em; /* khoảng cách giữa các chữ */
+    line-height: 1; /* chiều cao của ô nhập liệu */
     
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
+    -webkit-flex-direction: row; /* chiều rộng của ô nhập liệu */
+    -ms-flex-direction: row; /* chiều rộng của ô nhập liệu */
+    flex-direction: row; /* chiều rộng của ô nhập liệu */
+    -webkit-flex-wrap: nowrap; /* không cho phép hàng tự động xuống dòng */
+    -ms-flex-wrap: nowrap; /* không cho phép hàng tự động xuống dòng */
+    flex-wrap: nowrap; /* không cho phép hàng tự động xuống dòng */
 }
 
-ul.gj-list-md li [data-role="checkbox"] {
-    height: 24px;
-    width: 24px;
+ul.gj-list-md li [data-role="checkbox"] { /* về các ô nhập liệu */
+    height: 24px; /* chiều cao của ô nhập liệu */
+    width: 24px; /* chiều rộng của ô nhập liệu */
 }
 
-ul.gj-list-md li [data-role="image"] {
-    height: 24px;
-    width: 24px;
+ul.gj-list-md li [data-role="image"] { /* về các ô nhập liệu */
+    height: 24px; /* chiều cao của ô nhập liệu */
+    width: 24px; /* chiều rộng của ô nhập liệu */
 }
 
-ul.gj-list-md li [data-role="display"] {
-    padding: 8px 0px 8px 5px;
-    order: 0;
-    flex-grow: 2;
-    text-decoration: none;
-    box-sizing: border-box;
-    align-items: center;
-    text-align: left;
-    color: rgba(0,0,0,.87);
+ul.gj-list-md li [data-role="display"] { /* về các ô nhập liệu */
+    padding: 8px 0px 8px 5px; /* khoảng cách từ trái sang và từ trên xuống */
+    order: 0; /* thứ tự của ô nhập liệu */
+    flex-grow: 2; /* chiều rộng của ô nhập liệu */
+    text-decoration: none; /* không có gạch chân */
+    box-sizing: border-box; /* hộp chứa các phần tử */
+    align-items: center; /* căn giữa văn bản */
+    text-align: left; /* căn giữa văn bản */
+    color: rgba(0,0,0,.87); /* màu chữ của ô nhập liệu */
 }
 
-ul.gj-list-md li.disabled>[data-role="wrapper"]>[data-role="display"] {
-    color: #9E9E9E; /* Gray 500 */
+ul.gj-list-md li.disabled>[data-role="wrapper"]>[data-role="display"] { /* về các ô nhập liệu */
+    color: #9E9E9E;  /* màu chữ của ô nhập liệu */
 }
 
-.gj-list-md-active {
-    background: #e0e0e0;
-    color: #3f51b5;
+.gj-list-md-active { /* khi ô nhập liệu được chọn */
+    background: #e0e0e0; /* màu nền của ô nhập liệu */
+    color: #3f51b5; /* màu chữ của ô nhập liệu */
 }
 
 
 /* Picker */
-.gj-picker {
-    position: absolute;
-    z-index: 1203;
-    background-color: #fff;
-}
+.gj-picker { /* về các ô nhập liệu */
+    position: absolute; /* vị trí tuyệt đối */
+    z-index: 1203; /* độ ưu tiên hiển thị của ô nhập liệu */
+    background-color: #fff; /* màu nền của ô nhập liệu */
+} 
 
-.gj-picker .selected {
-    color: #fff;
+.gj-picker .selected { /* khi ô nhập liệu được chọn */
+    color: #fff; /* màu chữ của ô nhập liệu */
 }
 
 /* Material Design */
-.gj-picker-md {
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: .04em;
-    line-height: 1;
-    color: rgba(0,0,0,.87);
-    border: 1px solid #E0E0E0;
-}
+.gj-picker-md { /* về các ô nhập liệu */
+    font-family: "Roboto","Helvetica","Arial",sans-serif; /* font chữ của ô nhập liệu */
+    font-size: 16px; /* kích thước chữ của ô nhập liệu */
+    font-weight: 400; /* độ đậm của chữ */
+    letter-spacing: .04em; /* khoảng cách giữa các chữ */
+    line-height: 1; /* chiều cao của ô nhập liệu */
+    color: rgba(0,0,0,.87); /* màu chữ của ô nhập liệu */
+    border: 1px solid #E0E0E0; /* màu viền của ô nhập liệu */
+} 
 
-.gj-modal .gj-picker-md {
-    border: 0px;
+.gj-modal .gj-picker-md { /* về các ô nhập liệu */
+    border: 0px; /* không có viền */
 }
 
 .gj-picker-md [role="header"] {

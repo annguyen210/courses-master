@@ -3,562 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/1147679ae7.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>CHATBOT AI</title>
+    <title>Trí Tuệ Nhân Tạo - ChatBot AI</title>
+    <style>
+    :root {
+    --primary-color: #4a6fa5;       /* Màu chính dùng cho nút bấm, tiêu đề */
+    --secondary-color: #166088;     /* Màu phụ dùng khi hover, các yếu tố nhấn mạnh */
+    --background-color: #f5f7fa;    /* Màu nền chính của trang */
+    --bot-message-color: #e9f2ff;   /* Màu nền tin nhắn từ bot */
+    --user-message-color: #d4e3fc;  /* Màu nền tin nhắn từ người dùng */
+    --text-color: #333;            /* Màu chữ chính */
+    }
+
+        * {
+            /*Reset margin/padding về 0 cho tất cả phần tử*/
+            margin: 0; 
+            padding: 0;
+            box-sizing: border-box; /* Tính toán kích thước bao gồm border */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /*Thiết lập giãn cách dòng hợp lý*/
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6; /* Giãn cách dòng */
+        }
+        
+        .container {
+            max-width: 900px; /* Giới hạn chiều rộng tối đa */
+            margin: 0 auto;  /* Căn giữa */
+            padding: 20px; /* Tạo khoảng đệm */
+        }
+
+        header {
+            /*Căn giữa nội dung header. Tạo khoảng cách và gạch phân cách*/
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd; /* Gạch dưới */
+        }
+
+        h1 {
+            color: var(--primary-color); 
+            margin-bottom: 10px; /*Căn lề dưới 10px*/
+        }
+
+        .chat-container {
+            background-color: white;
+            border-radius: 10px; /* Bo góc */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  /* Đổ bóng */
+            overflow: hidden; /* Ẩn nội dung tràn */
+            height: 70vh;  /* Chiều cao 70% viewport */
+            display: flex; 
+            flex-direction: column;  /* Bố cục dọc */
+        }
+
+        .chat-messages {
+            /*Tự động co giãn theo chiều cao khả dụng
+            Tự động cuộn khi có nhiều tin nhắn*/
+            
+            flex: 1; /* Chiếm hết không gian còn lại */
+            padding: 20px;
+            overflow-y: auto; /* Cuộn khi nội dung dài */
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%; /* Giới hạn chiều rộng */
+            padding: 12px 15px;
+            border-radius: 18px; /* Bo góc */
+            word-wrap: break-word;  /* Tự động xuống dòng */
+        }
+
+        .bot-message {
+            background-color: var(--bot-message-color);
+            border-bottom-left-radius: 5px; /* Bo góc đặc biệt */
+
+            align-self: flex-start; /* Căn trái */
+
+        }
+
+        .user-message {
+            /* Mỗi tin nhắn có padding, bo góc và margin dưới
+                Tin nhắn bot và người dùng có màu nền khác nhau
+            Căn vị trí khác nhau (trái/phải) */
+           
+            background-color: var(--user-message-color);
+            border-bottom-right-radius: 5px; /* Bo góc đặc biệt */
+            margin-left: auto; /* Căn phải */
+        }
+
+        .input-area {
+            /*  Từ dòng 97 -> 129 Bố cục flexbox cho ô nhập và nút gửi
+          Hiệu ứng hover cho nút gửi
+          Thiết kế bo tròn hiện đại */
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;  /* Gạch phân cách */
+            background-color: white;
+        }
+
+        #user-input {
+            flex: 1;   /* Chiếm hết không gian */
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;  /* Bo tròn */
+            outline: none;  /* Ẩn viền khi focus */
+            font-size: 16px;
+        }
+
+        #send-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px; /* Bo tròn */
+            padding: 12px 25px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s; /* Hiệu ứng hover mượt */
+
+        }
+
+        #send-button:hover {
+            background-color: var(--secondary-color); /* Đổi màu khi hover */
+        }
+
+        .typing-indicator {
+            display: none;   /* Ẩn mặc định */
+            margin-bottom: 15px;
+        }
+
+        .typing-indicator span {
+            height: 10px;
+            width: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;  /* Hình tròn */
+            display: inline-block;
+            margin-right: 5px;
+            animation: bounce 1.5s infinite ease-in-out;  /* Hiệu ứng nhảy */
+
+        }
+
+        .typing-indicator span:nth-child(2) { 
+            animation-delay: 0.2s; 
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); } /* Nhảy lên */
+        }
+
+        .welcome-message {
+            text-align: center;  /* Căn giữa nội dung */
+            margin-bottom: 20px; /* Khoảng cách dưới 20px */
+            color: var(--secondary-color); /* Màu chữ lấy từ biến CSS */
+            font-weight: 500; /* Độ đậm của chữ */
+        }
+    
+
+        .api-settings {
+            margin-top: 20px;  /* Khoảng cách trên 20px */
+            padding: 15px;  /* Đệm bên trong 15px */
+            background-color: #f0f4f8; /* Màu nền nhạt */
+            border-radius: 8px; /* Bo góc 8px */
+        }
+
+        .api-settings h3 {
+            margin-bottom: 10px;  /* Khoảng cách dưới 10px */
+            color: var(--secondary-color); /* Màu tiêu đề */
+        }
+
+        .api-settings input {
+            /*margin-bottom: 10px tạo khoảng cách đều giữa các ô input*/
+            width: 100%; /* Chiếm toàn bộ chiều rộng */
+            padding: 8px; /* Đệm bên trong */
+            margin-bottom: 10px;  /* Khoảng cách giữa các input */
+            border: 1px solid #ddd; /* Viền input */
+            border-radius: 4px;  /* Bo góc nhẹ */
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 80vh;  /* Tăng chiều cao trên mobile */
+            }
+            
+            .message {
+                max-width: 90%; /* Tin nhắn rộng hơn */
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <div class="logo text-center">
-                    <img src="https://lh3.googleusercontent.com/fife/ALs6j_EfNwN1Oev1-iPZsRIdvkMCjvfrTNnDusXX6JT4TPF_0_jtckNaPcqJxUcqx4neU2l2q6PPTo4dvApoNeXpFY3JFl7zWnR5Tk_WgpI4dWeA_EguEYMe7FIIxqYM6LTCH_RRrRZ88Z5aOpi7u2mGUXaBsx22gTRVbcM6lEiT6cJHNXZCc0m5hXmiFUXLZoVr0Tz6QgmXy0chBWLyKHz5ceRdi3CRzdWvJU8NkKdpGi9dTeZUpQchFrAjMlImEhfZn-31lc06XIvZm6NsFDW7VXEE7G1rYu_HirFJk4mv3RGn8yh7Nb2k5F7NKhK7ZBR4qFGkUpRLGuAmWsXPn9tkhzyMLNea_QsPnB3aDN_Uq2MUInP2ir2LwY2eaBhuzSjeFpAMfUN4VJ_LK3GDvI5kXL7wom6zDAOb6t14YC5_o_0VAe6d02U12L7eMCWlp8UavYf4awA-qq7_ag2WolxenrFe7w4vMogITLb5tcoK4Uvkp8AU4MnUNY045plrPWjdSirRLPDKn7NVvNxwm0KK49iCD5cPNchx-FNU7uxMQz8hCbCK67QnHkrKUvP_hzFIxEH3LGM5jI90SzNmDiEMOpV_45bQTfyt5jabqziScMTN_ZkOR4qrRfo1fgVU9Iy-pEGrRnxOzGg2wtd-7PBUbpT57OKC3IoJkKLKX3JrzPpWygZxaW3XJrdblHD7emwJILUhqqw7FqXn47j5Vai26g-TIeFFPbO9zMhK8B4g6jh7jKFdZspLqMSccfJfGdUkFzOG-Gd6JGbAJkUOG4WcSoyP6lwQHth16QcDZ06v64sAiOxnd-pArJjLhwl92g31STV4PBx89wWr6_Ib8Ccz6maMeArrAiAm03kGde3wBr4SAPXlnCo55GL0M215q5_yPXcqWsZ0EpaG_FzIVR-ZqY9766X9V58m9MALoT7b_ZBakAG4SgRxDOsEk-QMVR2agsIv6_KNRK-SOEDANiMu_RD96ZM58URCK9d3VuRpg3Uy0gYJs5c8KhFC5Lhyot6Hahv2dYJ3nIcrEL__Iev2tK1fyeLtxn_uMD2Ty9H9_H7FKiSSfbOjIyYIXZD01Oje8H55iBsoDXCw8M4BN2fVOzkbx3GnoWiWmTk9G87My9Dnt6ijFo4MEPuI0MMwI5T9u4uHcHyWOuq_ls6dC23V9MsMtHvyV0-nBMLhyNv8mSMeIluhbS_9yVtwVP4EeC1efcaQtdmSzfezzZfsP2nxSyw-OR9g8LsTH5VMJOSqE4t2S0C680QgUVRB-dBLx7pbQHoCttemP08iZFqbDgBsaqnJAnvEJIuqPgyk4Gj70aEsaHNf370c3c4j8RNRL0ExZBmcS_Lrg5t8BrUoH4V6bjStyFcfQFV-dnWtoqqis_QqVn4jztuyk8T1t1g4mWe-g6SOKvbfFQH_qmNPknPqrREvO7CwQG3S7SguphAQoWjN_8VEItzBE1rKHVTvSP8yTKQze_3PO85N5gi9fnkLIQSkhNKuG0EgyPKlflKp8Lis_1AEr9vqbQlWP3RuGMfjk-NqxysvQit-upcOQyI2UMDGgih7XsUFI0weZYvSDX044bcw2Gmqgu8bNVrScSn5Aj2ovKigmhrstfSw=w1920-h868" class="img-fluid" alt="Logo">
+        <header>
+            <h1>Trí Tuệ Thông Tin</h1>
+            <p>ChatBot chuyên tìm kiếm và trích xuất thông tin</p>
+        </header>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                <div class="welcome-message">
+                    Xin chào! Tôi là Trí Tuệ Thông Tin - bot chuyên tìm kiếm, trích xuất và trả lời thông tin. Tôi có thể giúp gì cho bạn hôm nay?
                 </div>
             </div>
-            <div class="col-md-6">
-
-                    <ul class="navbar-nav">
-                    </ul>
-                </nav>
+            
+            <div class="typing-indicator" id="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn..." autocomplete="off">
+                <button id="send-button">Gửi</button>
             </div>
         </div>
     </div>
-</header>
-<main>
-    <section class="hero">
-        <img src="https://lh3.googleusercontent.com/fife/ALs6j_GtNzuLG87VEyl0C8VHBI84TWrU5ZFy5frWDYR6CBVr4k6UlhGGbRhdmsQPm7YM5o7oquiJXanTblu5d64SdzdWU3h1xi02xUK9hrDB5aWM5mt4adWoI4Fc8oUW64aP0fwfVyeccjcX72_BqcFKEk78CG4cxdbkWutNUS08sb2vx0Pddvy0WCszQ4N81b-NJUHh8aHyknCjEFvxziKvbiMItv0jtIUfKockaU-38vdv6iIBL1-OMO_iRbvG9zUkFRENS_tx20e7U_wQIV5LxJWTunB4KqQALczZXjycl3ZwN1RUHhQ20A6njQD6AgEzXjX3J3ro3lBteBikkEkNOoPwdTwgjbCHX5DxofSisH314ixOHdrwmjTNxQJJyTtgXfCn0_tEWdARbpvHg5b8Ri04bzTeSrQJx_HW9Ld2f33Fa0jyiyjc2hcz2k2-DL0vaJzlUudgFoDy5xqQutdAvFAUgpRbedQPjk8_jFx1PxOcwmZni09H4qoMgFJHjNRmwD53YrNvCp5RwHH836fik3pfP0O2SHurh3TUrD2GXZ6VDKglU3kE9KpSoU2JJzhrSkYtsYB5P6QWqHur-kVK02Vy1saPyNTFD9GAuCW0Bz7Z5wBdEUE8B1ZNso9YSHut-Vm_YjD_fK80meY6LAaN2zs7sqF1Qd8jG8njcqbXEBtJxlvAsrvDMUxGZsuGxz_Wdx7aLN2lIzTK1VpCGhNER5RY-FGpaKYE4xKEiNqY0DWRlGApuHl9XUlIjHvW1nf8jedCFy2haMlFrGYzWvENdQXQE2a3u2JWpYbPtMbFdGTLFFH6u7cIdZSCDN9gDpYWYb_fSh4kLbix3ilWxOZSHE2YZWj_gdXohSQfZEg8crkcpNwrqEo3WQpflsLJ4HJ6proAz_mkIb6Jh0KHwrFoXCDG9oQZ6Wwjyu-qx_iZEJn4gpnB6EnaguQ8ql1CdMRPReI3zzHz_PVE8f0V68qvYt0f-ZCnAjJoQzT43K-dEUPuYabPPqUy7eqyImM4R04M7aebk6l1qH3qZ6LFnEhd9R0C3uOxjw_febTU6lh7qHA8ETkg4UrFw_5NG9XMfEqHCnSx54L53gb9TQvnouIVvXPPwCtMMQA6ciwT5UdTWc4Fb93K4y9TUAwF18U61T-Fb0Oj7yvRXSXALIe3RxgKUCg1GYzau4UOZiF_URfUTKRG8PsjU-JpU7s6_Oqfdwy8eE5hER_J-IR_TxBk7SUNiKDm1jCY3uIHTGeVOTfH2_mT374F1h9922QVFkkT5nXwTeVZg6OyKo3f4XmIDab3Rm2hHS9HRext4aY7NChAPPhI_hMpaWSi8qvGt8N0jMXXB4hOLvxW4IFRmoNvH0CRBSvVZ4j9tzuqTZQYYeKkvJTaV_lrwuJlce2BXH8_H8unXdoLWq6XVtngKL_an15RXI5AHcXtxVyUqHuMxopkWFKX5yHsYAidocrk3EW4uhwercqC0it_4AvcA315C_NRJ-G8S9LWzsSaJDGakNnMY-iJSmgwuaztqQ9fUyDA6KBLbMqjDYc3B45R6u5WJccMmyMvkfIMZraiTv7c1s-16YqJ1E6Ihubo4YMxt2tQGnqp4IjbzUf3M_OVZ5Gu=w1920-h868" alt="Ảnh bìa" class="img-fluid">
-        <div class="hero-content">
-            <h1 class="display-4">Chào mừng bạn đến với Chatbot✅</h1>
-            <p class="lead">Nơi hỏi đáp các kiến thức học tập</p>
-        </div>
-    </section>
-    <section class="features">
-        <h2 class="mb-4">Ưu điểm của chúng tôi</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="feature text-center">
-                    <i class="fas fa-book fa-2x"></i>
-                    <h3>Sử dụng AI</h3>
-                    <p>AI được training để giảng dạy</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature text-center">
-                    <i class="fas fa-graduation-cap fa-2x"></i>
-                    <h3>Sử dụng & trò chuyện được với AI </h3>
-                    <p>Với nhu cầu hỏi đáp một số các kiến thức & câu hỏi bạn mong muốn📖</p>
-                </div>
-            </div>
-        </div>
+    <script>
+        const apiKey = "sk-J3vEsFqZXfrV6UtUPCVTYYgfTzUdAr7lrqmhAxO3xDkGOLyL"; // API key để xác thực với dịch vụ AI
+        const baseUrl = "https://api.chatanywhere.tech/v1";  // URL cơ sở của API
     
-</main>
-<section class="gia-su-thong-minh">
-    <h2 class="mb-4">Gia sư thông minh</h2>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="gia-su text-center">
-          <i class="fas fa-robot fa-2x"></i>
-          <h3>Chatbot✅</h3>
-          <p>Chatbot sẽ giúp bạn giải đáp các câu hỏi và bài tập bằng cách nhấn vào biểu tượng dưới đây⬇️</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="gia-su text-center">
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="gia-su text-center">
-          <i class="fas fa-comment fa-2x"></i>
-          <h3>Hỗ trợ trực tuyến</h3>
-          <p>Chatbot sẽ hỗ trợ bạn trực tuyến 24/7</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</section>
-<html>
-<head>
- 
-  <link rel="stylesheet" href="style.css">
-</head>
+        const sendButton = document.getElementById("send-button"); // Nút gửi tin nhắn
 
-<script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.6/libs/oversea/index.js"></script>
-<script>
-  new CozeWebSDK.WebChatClient({
-    config: {
-      bot_id: '7503195569994301456',
-    },
-    componentProps: {
-      title: 'Chatbot✅',
-    },
-    auth: {
-      type: 'token',
-      token: 'pat_********',
-      onRefreshToken: function () {
-        return 'pat_********'
-      }
-    }
-  });
-</script>
-      
+        const userInput = document.getElementById("user-input"); // Ô nhập tin nhắn
+        const chatMessages = document.getElementById("chat-messages");  // Khu vực hiển thị chat
+        const typingIndicator = document.getElementById("typing-indicator");  // Indicator "AI đang nhập"
+    
+        // Thêm tin nhắn vào giao diện
+        function addMessage(content, type = "bot") {
+            const messageElement = document.createElement("div"); // Tạo thẻ div mới
+            messageElement.classList.add("message", type === "user" ? "user-message" : "bot-message");
+            messageElement.textContent = content; // Gán nội dung tin nhắn
+            chatMessages.appendChild(messageElement); // Thêm vào khu vực chat
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Tự động cuộn xuống tin nhắn mới
+        }
+    
+        // Gửi tin nhắn
+        async function sendMessageToGPT(message) {
+            typingIndicator.style.display = "block"; // Hiện indicator "AI đang nhập"
 
-<style>
-  * {
-    box-sizing: border-box; /* đảm bảo padding và border không làm thay đổi kích thước của phần tử */
-    margin: 0; /* loại bỏ margin mặc định */
-    padding: 0; /* loại bỏ padding mặc định */
-}
+    
+            try {
+                const response = await fetch(`${baseUrl}/chat/completions`, { // Gọi API
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}` // Header xác thực
+                    },
+                    body: JSON.stringify({ // Dữ liệu gửi đi
 
-body {
-    font-family: Arial, sans-serif; /* sử dụng font chữ Arial */
-    line-height: 1.6; /* khoảng cách giữa các dòng */
-    color: #333; /* màu chữ */
-}
+                        model: "gpt-3.5-turbo", // Phiên bản AI
+                        messages: [
+                            { role: "system", content: "Bạn là trợ lý AI giúp tìm kiếm và trích xuất thông tin." }, // Prompt hệ thống
+                            { role: "user", content: message } // Tin nhắn người dùng
 
-header {
-    background-color:
-    #191919; /* màu nền của header */
-    padding: 20px; /* khoảng cách giữa nội dung và viền */
-    display: flex;  /* sử dụng flexbox để căn chỉnh nội dung */
-    justify-content: space-between; /* căn giữa nội dung */
-    align-items: center; /* căn giữa theo chiều dọc */
-}
+                        ],
+                        temperature: 0.7 // Độ sáng tạo (0-1)
+                    })
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    const botReply = data.choices[0].message.content.trim();  // Lấy nội dung phản hồi
+                    addMessage(botReply, "bot");
+                } else {
+                    addMessage("❌ Lỗi từ máy chủ: " + (data.error?.message || response.status), "bot"); // Xử lý lỗi API
+                }
+            } catch (error) {
+                addMessage("❌ Không thể kết nối đến máy chủ. Vui lòng kiểm tra mạng hoặc API key.", "bot"); // Xử lý lỗi mạng
+            } finally {
+                typingIndicator.style.display = "none"; // Ẩn indicator
+            }
+        }
+    
+        // Sự kiện gửi tin nhắn
+        sendButton.addEventListener("click", () => {
+            const message = userInput.value.trim(); // Lấy nội dung đã xóa khoảng trắng
+            if (message !== "") {
+                addMessage(message, "user"); // Hiển thị tin nhắn người dùng
+                userInput.value = ""; // Xóa ô nhập
+                sendMessageToGPT(message); // Gọi API
+            }
+        });
+    
+        // Gửi bằng phím Enter
+        userInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                sendButton.click(); // Kích hoạt sự kiện click nút gửi
+            }
+        });
+    </script>
+    
+</body>
+</html>
 
-.logo { 
-    margin-right: 1px; /* khoảng cách bên phải của logo */
-}
-
-nav {
-    background-color: #0000ff; /* màu nền của thanh điều hướng */
-}
-
-nav ul { /* danh sách các mục trong thanh điều hướng */
-    list-style: none; /* loại bỏ dấu chấm của danh sách */
-    margin: 0; /* loại bỏ khoảng cách của danh sách */
-    padding: 0; /* loại bỏ khoảng cách của danh sách */
-    display: flex;  /* sử dụng flexbox để căn chỉnh nội dung */
-}
-
-nav li { /* các mục trong thanh điều hướng */
-    margin-right: 20px; /* khoảng cách bên phải của các mục */
-}
-
-nav a { /* liên kết trong thanh điều hướng */
-    color: #0000ff; /* màu chữ */
-    text-decoration: none; /* loại bỏ đường kẻ dưới */
-}
-
-nav a:hover { /* hiệu ứng hover cho liên kết */
-    color: #0000cc; /* thay đổi màu chữ khi hover thành một sắc độ xanh dương nhạt hơn */
-}
-
-main { /* phần chính của trang */
-    display: flex; /* sử dụng flexbox để căn chỉnh nội dung */
-    flex-direction: column; /* sắp xếp theo chiều dọc */
-    align-items: center; /* căn giữa theo chiều ngang */
-    padding: 20px; /* khoảng cách giữa nội dung và viền */
-}
-
-.hero { /* phần hero */
-    position: relative;   /* định vị phần tử */
-    background-color: #000000; /* màu nền của phần hero */
-    padding: 40px; /* khoảng cách giữa nội dung và viền */
-    text-align: center; /* căn giữa nội dung */
-}
-
-.hero img { /* hình ảnh trong phần hero */
-    width: 100%; /* chiều rộng 100% */
-    height: 500px; /* chiều cao 500px */
-    object-fit: cover; /* giữ tỷ lệ hình ảnh và cắt bỏ phần thừa */
-}
-
-.hero-content { /* nội dung trong phần hero */
-    position: absolute; /* định vị phần tử */
-    top: 50%; /* căn giữa theo chiều dọc */
-    left: 50%; /* căn giữa theo chiều ngang */
-    transform: translate(-50%, -50%); /* dịch chuyển phần tử về giữa */
-    text-align: center; /* căn giữa nội dung */
-}
-
-.hero h1 { /* tiêu đề trong phần hero */
-    font-size: 36px;  /* cỡ chữ */
-    margin-bottom: 10px;  /* khoảng cách dưới của tiêu đề */
-}
-
-.hero button { /* nút trong phần hero */
-  
-   background-color: #120a0a; /* màu nền của nút */
-    color: #000000; /* màu chữ */
-    border: none; /* không có viền */
-    padding: 10px 20px; /* khoảng cách giữa nội dung và viền */
-    font-size: 18px; /* cỡ chữ */
-    cursor: pointer;    /* con trỏ chuột khi hover vào nút */
-}
-
-.hero button:hover { /* hiệu ứng hover cho nút */
-    background-color: #444; /* màu nền của nút khi hover */
-}
-
-.features { /* phần tính năng */
-    display: flex; /* sử dụng flexbox để căn chỉnh nội dung */
-    flex-wrap: wrap; /* cho phép các phần tử trong flexbox xuống dòng */
-    justify-content: center; /* căn giữa theo chiều ngang */
-}
-
-.feature { /* các tính năng */
-    margin: 20px; /* khoảng cách giữa các tính năng */
-    text-align: center; /* căn giữa nội dung */
-}
-
-.feature i { /* biểu tượng trong phần tính năng */
-    font-size: 36px; /* cỡ chữ */
-    margin-bottom: 10px; /* khoảng cách dưới của biểu tượng */
-}
-
-.testimonial {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.testimonial p {
-    margin-bottom: 10px;
-}
-
-.testimonial span {
-    font-size: 18px;
-    color: #666;
-}
-.upload button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #333;
-    color: #CCCCCC;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.login {
-    text-align: right;
-    margin-top: 20px;
-}
-.login .btn {
-    background-color: #4CAF50; /* Màu xanh lá cây */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .login .btn:hover {
-    background-color: #3e8e41; /* Màu xanh lá cây đậm hơn */
-  }
-  
-  .login .btn-primary {
-    background-color: #251f42; /* Màu xanh dương */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .login .btn-primary:hover {
-    background-color: #23527c; /* Màu xanh dương đậm hơn */
-  }
-  .features {
-    padding: 50px 0;
-    background-color: #f8f9fa;
-  }
-  
-  .features .feature {
-    padding: 30px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .features .feature:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .features .feature i {
-    color: #28a745;
-    font-size: 48px;
-    margin-bottom: 20px;
-  }
-  
-  .features .feature h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .features .feature p {
-    font-size: 16px;
-    color: #6c757d;
-  }
-  .upload {
-    padding: 50px 0;
-    background-color: #f8f9fa;
-  }
-  
-  .upload h2 {
-    margin-bottom: 20px;
-  }
-  
-  .upload form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .upload form.form-group {
-    margin-bottom: 20px;
-  }
-  
-  .upload form input[type="file"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-  }
-  
-  .upload form button[type="submit"] {
-    background-color: #337ab7;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .upload form button[type="submit"]:hover {
-    background-color: #23527c;
-  }
-  
-  .uploaded-image {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .uploaded-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  .hero-content h1 {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
-  }
-  .hero-content .lead {
-    color: #333;
-    font-size: 18px; 
-    font-weight: bold; 
-  }
-  .gia-su-thong-minh {
-    background-color: #f7f7f7;
-    padding: 20px;
-  }
-  
-  .gia-su {
-    margin-bottom: 20px;
-  }
-  
-  .gia-su i {
-    font-size: 36px;
-    color: #337ab7;
-  }
-  
-  .gia-su h3 {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .gia-su p {
-    font-size: 16px;
-    color: #666;
-  }
-  .bottom-contact ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* thêm khoảng cách giữa các phần tử */
-  }
-  
-  .bottom-contact ul li {
-    margin: 10px;
-    display: inline-block;
-  }
-  
-  .bottom-contact ul li img {
-    width: 120px; /* kích thước hình ảnh siêu to */
-    height: 120px; /* kích thước hình ảnh siêu to */
-    object-fit: cover; /* giữ tỷ lệ hình ảnh và cắt bỏ phần thừa */
-    border-radius: 50%; /* thêm bo góc hình ảnh */
-    margin: 10px auto; /* thêm khoảng cách hình ảnh và căn chỉnh vào giữa */
-    gap: 1000px;
-  }
-  .bottom-contact {
-    background-color: #f2f2f2; /* Màu nền của khung */
-    padding: 20px; /* Khoảng cách giữa nội dung và khung */
-    border-radius: 10px; /* Bo góc của khung */
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1); /* Đổ bóng cho khung */
-    width: 100%; /* Chiều rộng của khung */
-    max-width: 600px; /* Chiều rộng tối đa của khung */
-    margin: 0 auto; /* Đặt khung vào giữa màn hình */
-    text-align: center; /* Căn chỉnh nội dung vào giữa */
-  }
-  
-  .bottom-contact ul {
-    list-style: none; /* Loại bỏ dấu chấm của danh sách */
-    padding: 0; /* Loại bỏ khoảng cách của danh sách */
-    margin: 0; /* Loại bỏ khoảng cách của danh sách */
-    display: flex; /* Đặt danh sách thành dạng flexbox */
-    justify-content: center; /* Căn chỉnh nội dung vào giữa */
-    gap: 30px; /* Khoảng cách giữa các phần tử trong danh sách */
-  }
-  
-  .bottom-contact li {
-    margin: 10px; /* Khoảng cách giữa các phần tử trong danh sách */
-  }
-  
-  .bottom-contact a {
-    text-decoration: none; /* Loại bỏ đường kẻ dưới của liên kết */
-    color: #333; /* Màu sắc của liên kết */
-  }
-  
-  .bottom-contact img {
-    width: 40px; /* Chiều rộng của ảnh */
-    height: 40px; /* Chiều cao của ảnh */
-    margin: 10px; /* Khoảng cách giữa ảnh và nội dung */
-    border-radius: 50%; /* Bo góc của ảnh */
-  }
-  
-  .bottom-contact span {
-    font-size: 16px; /* Cỡ chữ của văn bản */
-    font-weight: bold; /* Kiểu chữ của văn bản */
-    color: #333; /* Màu sắc của văn bản */
-  }
-  .bottom-contact img { /* Kích thước ảnh */
-    width: 40px; /* Chiều rộng của ảnh */
-    height: 40px;  /* Chiều cao của ảnh */
-    margin: 10px; /* Khoảng cách giữa ảnh và nội dung */
-    border-radius: 50%; /* Bo góc của ảnh */
-    transition: transform 0.3s; /* Thêm hiệu ứng chuyển đổi */
-  }
-  
-  .bottom-contact img:hover {
-    transform: scale(1.2); /* Phóng to ảnh lên 1.2 lần khi con trỏ chuột chạm */
-  }
-  .bottom-contact h4 {
-    margin-top: 0; /* Loại bỏ khoảng cách trên của chữ "Liên hệ" */
-    font-size: 18px; /* Cỡ chữ của chữ "Liên hệ" */
-    font-weight: bold; /* Kiểu chữ của chữ "Liên hệ" */
-    color: #333; /* Màu sắc của chữ "Liên hệ" */
-    text-align: center; /* Căn chỉnh chữ "Liên hệ" vào giữa */
-    margin-bottom: 20px; /* Khoảng cách dưới của chữ "Liên hệ" */ 
-  }
-  .messenger-logo {
-    width: 100px; /* chiều rộng của logo */
-    height: 100px; /* chiều cao của logo */
-    display: flex; /* sử dụng flexbox để căn giữa nội dung */
-    justify-content: center; /* căn giữa nội dung theo chiều ngang */
-    align-items: center; /* căn giữa nội dung theo chiều dọc */
-  }
-  
-  .messenger-logo img {
-    width: 50px;  /* chiều rộng của logo */
-    height: auto;  /* chiều cao tự động để giữ tỷ lệ */
-  }
-  .container {
-    width: 80%; /* chiều rộng của khung */
-    margin: 40px auto; /* căn giữa khung */
-    text-align: center; /* căn giữa nội dung */
-  }
-  
-  .upload-frame {
-    border: 1px solid #ccc; /* viền của khung */
-    padding: 20px; /* khoảng cách giữa nội dung và viền */
-    border-radius: 10px; /* bo góc của khung */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* đổ bóng cho khung */
-  }
-  
-  .upload-frame input[type="file"] { /* kiểu input file */
-    margin-bottom: 10px; /* khoảng cách dưới của input file */
-  }
-  
-  .upload-frame button[type="submit"] { /* kiểu nút submit */
-    background-color: #4CAF50; /* màu nền của nút */
-    color: #fff; /* màu chữ của nút */
-    padding: 10px 20px; /* khoảng cách giữa nội dung và viền */
-    border: none; /* không có viền */
-    border-radius: 5px; /* bo góc của nút */
-    cursor: pointer; /* con trỏ chuột khi hover vào nút */
-  }
-  
-  .upload-frame button[type="submit"]:hover { /* hiệu ứng hover cho nút */
-    background-color: #3e8e41; /* màu nền của nút khi hover */
-  }
-  .container { /* chiều rộng của khung */
-    width: 80%; /* chiều rộng của khung */
-    margin: 40px auto; /* căn giữa khung */
-    text-align: center; /* căn giữa nội dung */
-  }
-  
-  .upload-frame { /* kiểu khung upload */
-    border: 1px solid #ccc; /* viền của khung */
-    padding: 20px; /* khoảng cách giữa nội dung và viền */
-    border-radius: 10px; /* bo góc của khung */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* đổ bóng cho khung */
-  }
-  
-  .upload-frame input[type="file"] { /* kiểu input file */
-    margin-bottom: 10px; /* khoảng cách dưới của input file */
-  }
-  
-  .upload-frame button[type="submit"] { /* kiểu nút submit */
-    background-color: #4CAF50; /* màu nền của nút */
-    color: #fff; /* màu chữ của nút */
-    padding: 10px 20px; /* khoảng cách giữa nội dung và viền */
-    border: none; /* không có viền */
-    border-radius: 5px; /* bo góc của nút */
-    cursor: pointer; /* con trỏ chuột khi hover vào nút */
-  }
-  
-  .upload-frame button[type="submit"]:hover { /* hiệu ứng hover cho nút */
-    background-color: #3e8e41; /* màu nền của nút khi hover */
-  }
-  .text-container { /* kiểu khung chứa văn bản */
-    border: 1px solid #ccc; /* viền của khung */
-    padding: 10px; /* khoảng cách giữa nội dung và viền */
-    width: 200px; /* chiều rộng của khung */
-    border-radius: 10px; /* bo góc của khung */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* đổ bóng cho khung */
-    text-align: center; /* căn giữa nội dung */
-    font-family: Arial, sans-serif; /* font chữ của văn bản */
-    font-size: 16px; /* cỡ chữ của văn bản */
-  }
-  
-  .text-container p { /* kiểu văn bản trong khung */
-    margin: 0; /* loại bỏ khoảng cách của văn bản */
-  }
-</style>
-  </body>
-  </html>

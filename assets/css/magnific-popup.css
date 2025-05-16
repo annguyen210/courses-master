@@ -1,4 +1,6 @@
 
+/* Phần khung chứa các hình ảnh và nội dung tiêu đề của các trang liên quan & một số button xem chi tiết đề , xem chi tiết bài giảng,.....*/
+
 .mfp-bg { /*Lớp phủ */
   top: 0; /* Đỉnh */
   left: 0; /* Trái */
@@ -15,7 +17,7 @@
   left: 0; /* Trái */
   width: 100%; /* Chiều rộng 100% */
   height: 100%; /* Chiều cao 100% */
-  z-index: 1043;  /* Trục dọc
+  z-index: 1043;  /* Trục dọc*/
   position: fixed; /* Vị trí cố định */
   outline: none !important; /* Không có viền */
   -webkit-backface-visibility: hidden; } /* Không có độ mờ */
