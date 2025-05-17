@@ -1,5 +1,5 @@
 
-/* Liên quan đến phần tử menu trong trang web. */
+/* Liên quan đến một số phần tử menu trong trang web. */
 
 .slicknav_btn { /*Dùng để thiết lập một nút bấm trong menu. */
   position: relative; /*Dùng để thiết lập một phần tử sử dụng các thuộc tính position mà không làm ảnh hưởng đến việc hiển thị ban đầu. */
